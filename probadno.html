@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda de Productos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Catálogo de Productos</h1>
+    <div id="productos-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center"></div>
+  </div>
+
+  <script>
+    const productos = [
+      {
+        nombre: "Clasica G60 Bronce Pulido",
+        descripcion: "Estilo retro con comodidad moderna.",
+        precio: "$89.99",
+        imagen: "https://images.unsplash.com/photo-1606813902917-0c99a841d277?auto=format&fit=crop&w=600&q=80",
+        link: "https://wa.me/1234567890?text=Hola%2C%20quiero%20más%20info%20sobre%20las%20zapatillas%20Adidas%20Samba"
+      },
+      {
+        nombre: "Cuadrada G60 Ac Inox",
+        descripcion: "Ideal para un look relajado y moderno.",
+        precio: "S/. 260.00",
+        imagen: "https://cantol.com.pe/wp-content/uploads/2025/01/manija-cuadrada-embutir.png",
+        link: "https://wa.me/1234567890?text=Hola%2C%20quiero%20más%20info%20sobre%20la%20camisa%20oversize"
+      },
+      {
+        nombre: "Redonda G60 Ac Inox",
+        descripcion: "Espaciosos, cómodos y con estilo callejero.",
+        precio: "$49.99",
+        imagen: "https://images.unsplash.com/photo-1585386959984-a41552262cbe?auto=format&fit=crop&w=600&q=80",
+        link: "https://wa.me/1234567890?text=Hola%2C%20quiero%20más%20info%20sobre%20los%20jeans%20cargo"
+      },
+{
+        nombre: "Cantol Bold Inteligente",
+        descripcion: "Estilo retro con comodidad moderna.",
+        precio: "$89.99",
+        imagen: "https://drive.google.com/uc?export=view&id=1Ncv0FvENqRMGS0eeVWZ4wbfZ0uUPQc6P",
+        link: "https://wa.me/1234567890?text=Hola%2C%20quiero%20más%20info%20sobre%20las%20zapatillas%20Adidas%20Samba"
+      },
+      {
+        nombre: "Modelo Perilla Negro Mate",
+        descripcion: "Ideal para un look relajado y moderno.",
+        precio: "S/. 45.00",
+        imagen: "https://cantol.com.pe/wp-content/uploads/2025/01/TipoBola_NM_dormitorio.png",
+        link: "https://wa.me/1234567890?text=Hola%2C%20quiero%20más%20info%20sobre%20la%20camisa%20oversize"
+      }
+    ];
+
+    function renderProductos() {
+      const contenedor = document.getElementById("productos-container");
+      contenedor.innerHTML = "";
+      productos.forEach(producto => {
+        contenedor.innerHTML += `
+          <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col w-full max-w-sm">
+            <img class="h-48 w-full object-cover" src="${producto.imagen}" alt="${producto.nombre}" />
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-800">${producto.nombre}</h2>
+                <p class="text-gray-600 text-sm mt-1">${producto.descripcion}</p>
+              </div>
+              <div class="mt-4 flex justify-between items-center">
+                <span class="text-green-600 font-bold">${producto.precio}</span>
+                <a href="${producto.link}" target="_blank"
+                   class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm font-medium flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.372 0 0 5.373 0 12c0 2.116.552 4.175 1.6 5.997L0 24l6.236-1.62A11.938 11.938 0 0012 24c6.628 0 12-5.373 12-12 0-3.193-1.247-6.208-3.48-8.52zM12 21.6c-1.816 0-3.585-.495-5.116-1.426l-.367-.221-3.695.96.987-3.618-.239-.373C2.342 15.03 1.8 13.534 1.8 12c0-5.627 4.573-10.2 10.2-10.2 2.73 0 5.297 1.065 7.226 2.993A10.176 10.176 0 0122.2 12c0 5.627-4.573 10.2-10.2 10.2zm5.566-7.674c-.293-.147-1.74-.86-2.01-.957-.27-.099-.466-.147-.662.146-.197.293-.76.957-.93 1.152-.17.195-.34.22-.633.073-.293-.146-1.236-.456-2.356-1.453-.87-.777-1.458-1.734-1.63-2.027-.17-.293-.018-.45.128-.597.132-.132.293-.34.44-.51.147-.17.195-.293.293-.488.098-.195.049-.366-.024-.513-.073-.146-.662-1.599-.91-2.19-.24-.576-.484-.499-.662-.51-.17-.006-.366-.007-.56-.007s-.513.073-.78.366c-.268.293-1.02 1-1.02 2.438s1.044 2.827 1.188 3.023c.146.195 2.05 3.13 4.97 4.386.695.3 1.236.478 1.659.612.697.222 1.33.19 1.83.115.558-.082 1.74-.637 1.986-1.252.244-.615.244-1.14.17-1.252-.073-.11-.268-.17-.56-.317z"/>
+                  </svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    renderProductos();
+  </script>
+</body>
+</html>
