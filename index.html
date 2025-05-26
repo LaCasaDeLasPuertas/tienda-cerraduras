@@ -5,11 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tienda de Cerraduras</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fuente Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Remix Icon -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-
   <style>
     .active-link {
       text-decoration: underline;
@@ -20,44 +17,39 @@
     .font-montserrat {
       font-family: 'Montserrat', sans-serif;
     }
+    .filtro-activo {
+      background-color: #1f2937;
+      color: white;
+    }
   </style>
 </head>
-<body class="bg-gray-100">
-<!-- Encabezado (conserva el tuyo) -->
-<header>
-<!-- Header con fuente Montserrat -->
-  <header class="bg-gray-900 shadow-md font-montserrat">
+<body class="bg-gray-100 font-montserrat">
+  <!-- Header -->
+  <header class="bg-gray-900 shadow-md">
     <div class="container mx-auto px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between">
       <a href="#" class="text-lg font-bold text-white">La Casa de las Puertas</a>
-      <!-- Botón móvil -->
       <button id="menu-toggle" class="text-white sm:hidden focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
           viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      <!-- Navegación -->
       <nav id="menu" class="hidden sm:flex space-x-6">
         <a href="https://lacasadelaspuertas.github.io/Inicio/" class="text-white hover:text-gray-300">Inicio</a>
         <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/" class="text-white hover:text-gray-300">Puertas</a>
         <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="text-white hover:text-gray-300">Cerraduras</a>
       </nav>
     </div>
-    <!-- Menú móvil -->
     <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
       <a href="https://lacasadelaspuertas.github.io/Inicio/" class="block text-white py-2 hover:text-gray-300">Inicio</a>
       <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/" class="block text-white py-2 hover:text-gray-300">Puertas</a>
       <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="block text-white py-2 hover:text-gray-300">Cerraduras</a>
     </div>
-
     <script>
       document.getElementById('menu-toggle').addEventListener('click', function () {
         const menu = document.getElementById('mobile-menu');
         menu.classList.toggle('hidden');
       });
-    </script>
-
-    <script>
       const currentUrl = window.location.href;
       document.querySelectorAll('a').forEach(link => {
         if (link.href === currentUrl) {
@@ -66,24 +58,21 @@
       });
     </script>
   </header>
-</header>
 
-<main class="max-w-7xl mx-auto px-4 py-6 space-y-12">
-  <!-- Filtros -->
-  <div class="flex flex-wrap justify-center gap-4 mb-8">
-    <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Cerraduras de Entrada</button>
-    <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Cerraduras de Interior</button>
-    <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Cerraduras Digitales</button>
-  </div>
+  <main class="max-w-7xl mx-auto px-4 py-6 space-y-12">
+    <!-- Filtros -->
+    <div class="flex overflow-x-auto gap-2 mb-4 justify-start sm:justify-center no-scrollbar">
+      <button class="filtro-btn whitespace-nowrap px-3 py-1 border rounded-full text-xs font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Cerraduras de Entrada</button>
+      <button class="filtro-btn whitespace-nowrap px-3 py-1 border rounded-full text-xs font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Cerraduras de Interior</button>
+      <button class="filtro-btn whitespace-nowrap px-3 py-1 border rounded-full text-xs font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Cerraduras Digitales</button>
+    </div>
 
-  <!-- Contenedor de productos -->
-<!-- Contenedor de productos -->
-<div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3"></div>
+    <!-- Contenedor de productos -->
+    <div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </main>
 
-
-<!-- Pie de página (conserva el tuyo) -->
-<footer>
-   <footer class="bg-gray-900 text-white py-12 mt-12">
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 mt-12">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
       <div>
         <h3 class="text-xl font-bold mb-4 border-b border-white pb-2">Información de Contacto</h3>
@@ -116,74 +105,69 @@
       <p>© 2025 La Casa de las Puertas. Todos los derechos reservados.</p>
     </div>
   </footer>
-</footer>
 
-<!-- Script al final del body -->
-<script>
-  const productos = [
-    {
-      nombre: "Cerradura Yale YL1",
-      descripcion: "Cerradura de alta seguridad para puertas principales.",
-      precio: "S/ 120.00",
-      imagen: "https://via.placeholder.com/300x300?text=Cerradura+YL1",
-      link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+YL1",
-      categoria: "entrada"
-    },
-    {
-      nombre: "Cerradura Interior Basic",
-      descripcion: "Ideal para habitaciones o baños.",
-      precio: "S/ 50.00",
-      imagen: "https://via.placeholder.com/300x300?text=Cerradura+Interior",
-      link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
-      categoria: "interior"
-    },
-    {
-      nombre: "Cerradura Digital SmartLock",
-      descripcion: "Controla tu puerta con huella y app móvil.",
-      precio: "S/ 380.00",
-      imagen: "https://via.placeholder.com/300x300?text=Cerradura+Digital",
-      link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
-      categoria: "digital"
-    },
-    // Puedes agregar más productos aquí
-  ];
+  <!-- Script para productos -->
+  <script>
+    const productos = [
+      {
+        nombre: "Cerradura Yale YL1",
+        descripcion: "Cerradura de alta seguridad para puertas principales.",
+        precio: "S/ 120.00",
+        imagen: "https://via.placeholder.com/300x300?text=Cerradura+YL1",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+YL1",
+        categoria: "entrada"
+      },
+      {
+        nombre: "Cerradura Interior Basic",
+        descripcion: "Ideal para habitaciones o baños.",
+        precio: "S/ 50.00",
+        imagen: "https://via.placeholder.com/300x300?text=Cerradura+Interior",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
+        categoria: "interior"
+      },
+      {
+        nombre: "Cerradura Digital SmartLock",
+        descripcion: "Controla tu puerta con huella y app móvil.",
+        precio: "S/ 380.00",
+        imagen: "https://via.placeholder.com/300x300?text=Cerradura+Digital",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
+        categoria: "digital"
+      },
+      // Agrega más productos si deseas
+    ];
 
-  const contenedor = document.getElementById('contenedor-productos');
-  const botonesFiltro = document.querySelectorAll('.filtro-btn');
+    const contenedor = document.getElementById('contenedor-productos');
+    const botonesFiltro = document.querySelectorAll('.filtro-btn');
 
-  function renderizarProductos(filtroCategoria) {
-    contenedor.innerHTML = '';
-    const productosFiltrados = productos.filter(producto => producto.categoria === filtroCategoria);
-    productosFiltrados.forEach(producto => {
-      const card = document.createElement('div');
-      card.className = 'bg-white shadow-lg rounded-xl overflow-hidden p-4 flex flex-col';
-      card.innerHTML = `
-        <img src="${producto.imagen}" alt="${producto.nombre}" class="h-52 object-cover rounded mb-4">
-        <h3 class="text-lg font-bold">${producto.nombre}</h3>
-        <p class="text-sm text-gray-600 mb-2">${producto.descripcion}</p>
-        <p class="font-semibold text-yellow-600 mb-4">${producto.precio}</p>
-        <a href="${producto.link}" target="_blank" class="mt-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
-          <i class="ri-whatsapp-line"></i> Consultar por WhatsApp
-        </a>
-      `;
-      contenedor.appendChild(card);
-    });
-  }
+    function renderizarProductos(filtroCategoria) {
+      contenedor.innerHTML = '';
+      const productosFiltrados = productos.filter(producto => producto.categoria === filtroCategoria);
+      productosFiltrados.forEach(producto => {
+        const card = document.createElement('div');
+        card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm';
+        card.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}" class="h-36 object-cover rounded mb-2">
+          <h3 class="text-base font-semibold">${producto.nombre}</h3>
+          <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
+          <p class="font-semibold text-yellow-600 mb-2">${producto.precio}</p>
+          <a href="${producto.link}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1">
+            <i class="ri-whatsapp-line text-base"></i> Consultar
+          </a>
+        `;
+        contenedor.appendChild(card);
+      });
+    }
 
-  function filtrar(categoria) {
-    renderizarProductos(categoria);
-    botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
-    const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
-    if (btnActivo) btnActivo.classList.add('filtro-activo');
-  }
+    function filtrar(categoria) {
+      renderizarProductos(categoria);
+      botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
+      const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
+      if (btnActivo) btnActivo.classList.add('filtro-activo');
+    }
 
-  filtrar('entrada');
-</script>
+    filtrar('entrada');
+  </script>
+</body>
+</html>
 
-<style>
-  .filtro-activo {
-    background-color: #1f2937;
-    color: white;
-  }
-</style>
 
