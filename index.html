@@ -7,14 +7,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Fuente Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Remix Icon -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
   <style>
-    
-.active-link {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 2px;
-  color: #facc15 !important;
+    .active-link {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+      color: #facc15 !important;
     }
     .font-montserrat {
       font-family: 'Montserrat', sans-serif;
@@ -27,7 +28,6 @@
   <header class="bg-black shadow-md font-montserrat">
     <div class="container mx-auto px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between">
       <a href="#" class="text-lg font-bold text-white">La Casa de las Puertas</a>
-
       <!-- Botón móvil -->
       <button id="menu-toggle" class="text-white sm:hidden focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
@@ -35,7 +35,6 @@
           <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-
       <!-- Navegación -->
       <nav id="menu" class="hidden sm:flex space-x-6">
         <a href="https://lacasadelaspuertas.github.io/Inicio/" class="text-white hover:text-gray-300">Inicio</a>
@@ -43,7 +42,6 @@
         <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="text-white hover:text-gray-300">Cerraduras</a>
       </nav>
     </div>
-
     <!-- Menú móvil -->
     <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
       <a href="https://lacasadelaspuertas.github.io/Inicio/" class="block text-white py-2 hover:text-gray-300">Inicio</a>
@@ -51,7 +49,6 @@
       <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="block text-white py-2 hover:text-gray-300">Cerraduras</a>
     </div>
 
-    <!-- Script para el menú móvil -->
     <script>
       document.getElementById('menu-toggle').addEventListener('click', function () {
         const menu = document.getElementById('mobile-menu');
@@ -59,7 +56,6 @@
       });
     </script>
 
-    <!-- Script para resaltar link activo -->
     <script>
       const currentUrl = window.location.href;
       document.querySelectorAll('a').forEach(link => {
@@ -114,7 +110,6 @@
         link: "https://wa.me/1234567890?text=Hola%2C%20quiero%20más%20info%20sobre%20la%20camisa%20oversize"
       }
     ];
-  
 
     function renderProductos() {
       const contenedor = document.getElementById("productos-container");
@@ -132,9 +127,7 @@
                 <span class="text-green-600 font-bold">${producto.precio}</span>
                 <a href="${producto.link}" target="_blank"
                    class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm font-medium flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.372 0 0 5.373 0 12c0 2.116.552 4.175 1.6 5.997L0 24l6.236-1.62A11.938 11.938 0 0012 24c6.628 0 12-5.373 12-12 0-3.193-1.247-6.208-3.48-8.52zM12 21.6c-1.816 0-3.585-.495-5.116-1.426l-.367-.221-3.695.96.987-3.618-.239-.373C2.342 15.03 1.8 13.534 1.8 12c0-5.627 4.573-10.2 10.2-10.2 2.73 0 5.297 1.065 7.226 2.993A10.176 10.176 0 0122.2 12c0 5.627-4.573 10.2-10.2 10.2zm5.566-7.674c-.293-.147-1.74-.86-2.01-.957-.27-.099-.466-.147-.662.146-.197.293-.76.957-.93 1.152-.17.195-.34.22-.633.073-.293-.146-1.236-.456-2.356-1.453-.87-.777-1.458-1.734-1.63-2.027-.17-.293-.018-.45.128-.597.132-.132.293-.34.44-.51.147-.17.195-.293.293-.488.098-.195.049-.366-.024-.513-.073-.146-.662-1.599-.91-2.19-.24-.576-.484-.499-.662-.51-.17-.006-.366-.007-.56-.007s-.513.073-.78.366c-.268.293-1.02 1-1.02 2.438s1.044 2.827 1.188 3.023c.146.195 2.05 3.13 4.97 4.386.695.3 1.236.478 1.659.612.697.222 1.33.19 1.83.115.558-.082 1.74-.637 1.986-1.252.244-.615.244-1.14.17-1.252-.073-.11-.268-.17-.56-.317z"/>
-                  </svg>
+                  <i class="ri-whatsapp-line text-white text-lg"></i>
                   Consultar
                 </a>
               </div>
@@ -146,8 +139,9 @@
 
     renderProductos();
   </script>
- <!-- Pie de pagina -->
-    <footer class="bg-gray-900 text-white py-12 mt-12">
+
+  <!-- Pie de pagina -->
+  <footer class="bg-gray-900 text-white py-12 mt-12">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
       <div>
         <h3 class="text-xl font-bold mb-4 border-b border-white pb-2">Información de Contacto</h3>
