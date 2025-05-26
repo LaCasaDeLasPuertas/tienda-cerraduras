@@ -16,47 +16,56 @@
 </head>
 <body class="bg-gray-100">
 
-  <!-- Encabezado -->
-  <header class="bg-black shadow-md">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between">
-      <a href="#" class="text-lg font-bold text-white">La Casa de las Puertas</a>
+ <!-- Header -->
+<style>
+  .active-link {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+    color: #facc15; /* amarillo (Tailwind: yellow-400) */
+  }
+</style>
 
-      <!-- Botón para menú móvil -->
-      <button id="menu-toggle" class="text-white sm:hidden focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-          viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+<header class="bg-black shadow-md">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between">
+    <a href="#" class="text-lg font-bold text-white">La Casa de las Puertas</a>
 
-      <!-- Navegación -->
-      <nav id="menu" class="hidden sm:flex space-x-6">
-        <a href="https://lacasadelaspuertas.github.io/Inicio/"
-           class="hover:text-gray-300 text-white">Inicio</a>
-        <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/"
-           class="hover:text-gray-300 text-white">Puertas</a>
-        <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/"
-           class="active-link">Cerraduras</a>
-      </nav>
-    </div>
+    <!-- Botón para menú móvil -->
+    <button id="menu-toggle" class="text-white sm:hidden focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
 
-    <!-- Menú móvil -->
-    <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
+    <!-- Navegación -->
+    <nav id="menu" class="hidden sm:flex space-x-6">
       <a href="https://lacasadelaspuertas.github.io/Inicio/"
-         class="block py-2 hover:text-gray-300 text-white">Inicio</a>
+         class="text-white hover:text-gray-300">Inicio</a>
       <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/"
-         class="block py-2 hover:text-gray-300 text-white">Puertas</a>
+         class="text-white hover:text-gray-300">Puertas</a>
       <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/"
-         class="block py-2 active-link">Cerraduras</a>
-    </div>
+         class="text-white hover:text-gray-300 active-link">Cerraduras</a>
+    </nav>
+  </div>
 
-    <script>
-      document.getElementById('menu-toggle').addEventListener('click', function () {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
-      });
-    </script>
-  </header>
+  <!-- Menú móvil -->
+  <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
+    <a href="https://lacasadelaspuertas.github.io/Inicio/"
+       class="block text-white py-2 hover:text-gray-300">Inicio</a>
+    <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/"
+       class="block text-white py-2 hover:text-gray-300">Puertas</a>
+    <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/"
+       class="block text-white py-2 hover:text-gray-300 active-link">Cerraduras</a>
+  </div>
+
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+</header>
 
   <!-- Contenido principal -->
   <div class="max-w-6xl mx-auto p-6">
