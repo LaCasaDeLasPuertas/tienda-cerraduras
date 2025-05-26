@@ -6,18 +6,18 @@
   <title>Cerraduras</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-    }
-    .filtro-activo {
-      background-color: #1f2937;
-      color: white;
-    }
-  </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
+  <!-- ENCABEZADO -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-800">Catálogo de Cerraduras</h1>
+      <!-- Agrega más contenido aquí si deseas -->
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
   <main class="max-w-7xl mx-auto px-4 py-6 space-y-12">
     <!-- Filtros -->
     <div class="flex flex-wrap justify-center gap-4 mb-8">
@@ -26,10 +26,18 @@
       <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Cerraduras Digitales</button>
     </div>
 
-    <!-- Contenedor de productos -->
+    <!-- Productos -->
     <div id="contenedor-productos" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></div>
   </main>
 
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-white shadow mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
+      &copy; 2025 Tu Empresa. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
   <script>
     const productos = [
       {
@@ -54,29 +62,26 @@
         precio: "S/ 380.00",
         imagen: "https://via.placeholder.com/300x300?text=Cerradura+Digital",
         link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
-        categoria: "interior"
-      },
-      // Puedes agregar más productos aquí siguiendo el mismo formato
+        categoria: "digital"
+      }
+      // Puedes seguir agregando productos con la misma estructura
     ];
 
     const contenedor = document.getElementById('contenedor-productos');
     const botonesFiltro = document.querySelectorAll('.filtro-btn');
 
-    function renderizarProductos(filtroCategoria) {
+    function renderizarProductos(categoria) {
       contenedor.innerHTML = '';
-
-      const productosFiltrados = productos.filter(producto => producto.categoria === filtroCategoria);
-
-      productosFiltrados.forEach(producto => {
+      const filtrados = productos.filter(p => p.categoria === categoria);
+      filtrados.forEach(p => {
         const card = document.createElement('div');
         card.className = 'bg-white shadow-lg rounded-xl overflow-hidden p-4 flex flex-col';
-
         card.innerHTML = `
-          <img src="${producto.imagen}" alt="${producto.nombre}" class="h-52 object-cover rounded mb-4">
-          <h3 class="text-lg font-bold">${producto.nombre}</h3>
-          <p class="text-sm text-gray-600 mb-2">${producto.descripcion}</p>
-          <p class="font-semibold text-yellow-600 mb-4">${producto.precio}</p>
-          <a href="${producto.link}" target="_blank" class="mt-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
+          <img src="${p.imagen}" alt="${p.nombre}" class="h-52 object-cover rounded mb-4">
+          <h3 class="text-lg font-bold">${p.nombre}</h3>
+          <p class="text-sm text-gray-600 mb-2">${p.descripcion}</p>
+          <p class="font-semibold text-yellow-600 mb-4">${p.precio}</p>
+          <a href="${p.link}" target="_blank" class="mt-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
             <i class="ri-whatsapp-line"></i> Consultar por WhatsApp
           </a>
         `;
@@ -87,13 +92,21 @@
     function filtrar(categoria) {
       renderizarProductos(categoria);
       botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
-      const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
-      if (btnActivo) btnActivo.classList.add('filtro-activo');
+      const activo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
+      if (activo) activo.classList.add('filtro-activo');
     }
 
-    // Mostrar por defecto los de "entrada"
+    // Mostrar por defecto la categoría "entrada"
     filtrar('entrada');
   </script>
 
+  <style>
+    .filtro-activo {
+      background-color: #1f2937; /* gris oscuro */
+      color: white;
+    }
+  </style>
+
 </body>
 </html>
+
