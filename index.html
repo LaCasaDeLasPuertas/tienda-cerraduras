@@ -5,17 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tienda de Productos</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Estilo para el enlace activo -->
-<style>
-  .active-link {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 2px;
-    text-decoration-color: #facc15; /* subrayado amarillo */
-    color: #facc15; /* texto blanco */
-  }
-</style>
+  <style>
+    .active-link {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+      color: #facc15; /* amarillo (Tailwind: yellow-400) */
+    }
+  </style>
 </head>
 <body class="bg-gray-100">
 
@@ -35,22 +32,22 @@
       <!-- Navegación -->
       <nav id="menu" class="hidden sm:flex space-x-6">
         <a href="https://lacasadelaspuertas.github.io/Inicio/"
-           class="text-white hover:text-gray-300">Inicio</a>
+           class="hover:text-gray-300 text-white">Inicio</a>
         <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/"
-           class="text-white hover:text-gray-300">Puertas</a>
+           class="hover:text-gray-300 text-white">Puertas</a>
         <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/"
-           class="text-white hover:text-gray-300 active-link">Cerraduras</a>
+           class="active-link">Cerraduras</a>
       </nav>
     </div>
 
     <!-- Menú móvil -->
     <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
       <a href="https://lacasadelaspuertas.github.io/Inicio/"
-         class="block text-white py-2 hover:text-gray-300">Inicio</a>
+         class="block py-2 hover:text-gray-300 text-white">Inicio</a>
       <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/"
-         class="block text-white py-2 hover:text-gray-300">Puertas</a>
+         class="block py-2 hover:text-gray-300 text-white">Puertas</a>
       <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/"
-         class="block text-white py-2 hover:text-gray-300 active-link">Cerraduras</a>
+         class="block py-2 active-link">Cerraduras</a>
     </div>
 
     <script>
@@ -61,13 +58,12 @@
     </script>
   </header>
 
-  <!-- Contenido de la tienda -->
+  <!-- Contenido principal -->
   <div class="max-w-6xl mx-auto p-6">
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Catálogo de Productos</h1>
     <div id="productos-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center"></div>
   </div>
 
-  <!-- Script para mostrar productos -->
   <script>
     const productos = [
       {
@@ -139,3 +135,4 @@
   </script>
 </body>
 </html>
+
