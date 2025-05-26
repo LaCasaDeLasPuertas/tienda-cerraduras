@@ -18,15 +18,6 @@
 
  <!-- Header -->
 <!-- Header -->
-<style>
-  .active-link {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 2px;
-    color: #facc15; /* amarillo (Tailwind: yellow-400) */
-  }
-</style>
-
 <header class="bg-black shadow-md">
   <div class="container mx-auto px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between">
     <a href="#" class="text-lg font-bold text-white">La Casa de las Puertas</a>
@@ -42,22 +33,22 @@
     <!-- Navegación -->
     <nav id="menu" class="hidden sm:flex space-x-6">
       <a href="https://lacasadelaspuertas.github.io/Inicio/"
-         class="text-white hover:text-gray-300">Inicio</a>
+         class="text-white hover:text-gray-300 active-link">Inicio</a>
       <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/"
          class="text-white hover:text-gray-300">Puertas</a>
       <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/"
-         class="active-link hover:text-gray-300">Cerraduras</a>
+         class="text-white hover:text-gray-300">Cerraduras</a>
     </nav>
   </div>
 
   <!-- Menú móvil -->
   <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
     <a href="https://lacasadelaspuertas.github.io/Inicio/"
-       class="block text-white py-2 hover:text-gray-300">Inicio</a>
+       class="block text-white py-2 hover:text-gray-300 active-link">Inicio</a>
     <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/"
        class="block text-white py-2 hover:text-gray-300">Puertas</a>
     <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/"
-       class="block py-2 hover:text-gray-300 active-link">Cerraduras</a>
+       class="block text-white py-2 hover:text-gray-300">Cerraduras</a>
   </div>
 
   <script>
