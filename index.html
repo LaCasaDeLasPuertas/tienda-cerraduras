@@ -60,16 +60,17 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 py-6 space-y-12">
-    <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6 font-montserrat">
+  <!-- Título -->
+<h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-2 font-montserrat">
   Nuestras Cerraduras
 </h2>
 
-    <!-- Filtros -->
-    <div class="flex overflow-x-auto gap-2 mb-4 justify-start sm:justify-center no-scrollbar">
-      <button class="filtro-btn whitespace-nowrap px-3 py-1 border rounded-full text-xs font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Entrada</button>
-      <button class="filtro-btn whitespace-nowrap px-3 py-1 border rounded-full text-xs font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Interior</button>
-      <button class="filtro-btn whitespace-nowrap px-3 py-1 border rounded-full text-xs font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Digitales</button>
-    </div>
+<!-- Filtros -->
+<div class="flex justify-center flex-wrap gap-3 mb-6">
+  <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Cerraduras de Entrada</button>
+  <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Cerraduras de Interior</button>
+  <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Cerraduras Digitales</button>
+</div>
 
     <!-- Contenedor de productos -->
     <div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3"></div>
@@ -150,7 +151,8 @@
         const card = document.createElement('div');
         card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm';
         card.innerHTML = `
-         <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-40 mx-auto rounded mb-2">
+       <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full sm:w-48 mx-auto rounded mb-2">
+
 
 
           <h3 class="text-base font-semibold">${producto.nombre}</h3>
