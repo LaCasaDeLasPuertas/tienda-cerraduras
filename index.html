@@ -72,9 +72,10 @@
   <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Digitales</button>
 </div>
 
-    <!-- Contenedor de productos -->
-    <div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3"></div>
-  </main>
+  <!-- Contenedor de productos -->
+<div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"></div>
+</main>
+
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12 mt-12">
@@ -151,7 +152,8 @@
         const card = document.createElement('div');
         card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm';
         card.innerHTML = `
-       <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full sm:w-48 mx-auto rounded mb-2">
+      <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">
+
 
 
 
