@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tienda de Productos</title>
+  <title>Tienda de Cerraduras</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fuente Montserrat desde Google Fonts -->
+  <!-- Fuente Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Estilos personalizados -->
   <style>
     .active-link {
       text-decoration: underline;
@@ -23,12 +22,12 @@
 </head>
 <body class="bg-gray-100">
 
-  <!-- Encabezado con Montserrat -->
+  <!-- Header con fuente Montserrat -->
   <header class="bg-black shadow-md font-montserrat">
     <div class="container mx-auto px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between">
       <a href="#" class="text-lg font-bold text-white">La Casa de las Puertas</a>
 
-      <!-- Botón para menú móvil -->
+      <!-- Botón móvil -->
       <button id="menu-toggle" class="text-white sm:hidden focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
           viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -40,7 +39,7 @@
       <nav id="menu" class="hidden sm:flex space-x-6">
         <a href="https://lacasadelaspuertas.github.io/Inicio/" class="text-white hover:text-gray-300">Inicio</a>
         <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/" class="text-white hover:text-gray-300">Puertas</a>
-        <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="text-white hover:text-gray-300 active-link">Cerraduras</a>
+        <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="text-white hover:text-gray-300">Cerraduras</a>
       </nav>
     </div>
 
@@ -48,17 +47,27 @@
     <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
       <a href="https://lacasadelaspuertas.github.io/Inicio/" class="block text-white py-2 hover:text-gray-300">Inicio</a>
       <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/" class="block text-white py-2 hover:text-gray-300">Puertas</a>
-      <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="block text-white py-2 hover:text-gray-300 active-link">Cerraduras</a>
+      <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="block text-white py-2 hover:text-gray-300">Cerraduras</a>
     </div>
 
+    <!-- Script para el menú móvil -->
     <script>
       document.getElementById('menu-toggle').addEventListener('click', function () {
         const menu = document.getElementById('mobile-menu');
         menu.classList.toggle('hidden');
       });
     </script>
-  </header>
 
+    <!-- Script para resaltar link activo -->
+    <script>
+      const currentUrl = window.location.href;
+      document.querySelectorAll('a').forEach(link => {
+        if (link.href === currentUrl) {
+          link.classList.add('active-link');
+        }
+      });
+    </script>
+  </header>
   <!-- Contenido principal -->
   <div class="max-w-6xl mx-auto p-6">
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Catálogo de Productos</h1>
