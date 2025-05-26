@@ -3,110 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cerraduras</title>
+  <title>Tienda de Cerraduras</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fuente Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Remix Icon -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50 text-gray-800">
 
-  <!-- ENCABEZADO -->
-  <header class="bg-white shadow">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-gray-800">Catálogo de Cerraduras</h1>
-      <!-- Agrega más contenido aquí si deseas -->
+  <style>
+    .active-link {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+      color: #facc15 !important;
+    }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header con fuente Montserrat -->
+  <header class="bg-black shadow-md font-montserrat">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between">
+      <a href="#" class="text-lg font-bold text-white">La Casa de las Puertas</a>
+      <!-- Botón móvil -->
+      <button id="menu-toggle" class="text-white sm:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <!-- Navegación -->
+      <nav id="menu" class="hidden sm:flex space-x-6">
+        <a href="https://lacasadelaspuertas.github.io/Inicio/" class="text-white hover:text-gray-300">Inicio</a>
+        <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/" class="text-white hover:text-gray-300">Puertas</a>
+        <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="text-white hover:text-gray-300">Cerraduras</a>
+      </nav>
     </div>
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="sm:hidden hidden px-4 pb-4">
+      <a href="https://lacasadelaspuertas.github.io/Inicio/" class="block text-white py-2 hover:text-gray-300">Inicio</a>
+      <a href="https://lacasadelaspuertas.github.io/galeria-de-trabajos/" class="block text-white py-2 hover:text-gray-300">Puertas</a>
+      <a href="https://lacasadelaspuertas.github.io/tienda-cerraduras/" class="block text-white py-2 hover:text-gray-300">Cerraduras</a>
+    </div>
+
+    <script>
+      document.getElementById('menu-toggle').addEventListener('click', function () {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+      });
+    </script>
+
+    <script>
+      const currentUrl = window.location.href;
+      document.querySelectorAll('a').forEach(link => {
+        if (link.href === currentUrl) {
+          link.classList.add('active-link');
+        }
+      });
+    </script>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main class="max-w-7xl mx-auto px-4 py-6 space-y-12">
+  <!-- Contenido principal -->
+  <main class="container mx-auto px-4 sm:px-6 lg:px-16 py-12 font-montserrat">
+    <h1 class="text-3xl font-bold mb-8 text-center">Tienda de Cerraduras</h1>
+
     <!-- Filtros -->
     <div class="flex flex-wrap justify-center gap-4 mb-8">
-      <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Cerraduras de Entrada</button>
-      <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Cerraduras de Interior</button>
-      <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Cerraduras Digitales</button>
+      <button onclick="filtrarProductos('Entrada')" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500">Cerraduras de Entrada</button>
+      <button onclick="filtrarProductos('Interior')" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500">Cerraduras de Interior</button>
+      <button onclick="filtrarProductos('Digitales')" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500">Cerraduras Digitales</button>
+      <button onclick="filtrarProductos('Todas')" class="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400">Mostrar Todas</button>
     </div>
 
     <!-- Productos -->
-    <div id="contenedor-productos" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></div>
+    <div id="productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Ejemplo de Producto -->
+      <div class="producto" data-categoria="Entrada">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <img src="URL_DE_LA_IMAGEN" alt="Nombre del producto" class="w-full h-48 object-cover rounded">
+          <h2 class="text-lg font-semibold mt-4">Nombre del Producto</h2>
+          <p class="text-gray-600 mt-2">Descripción del producto.</p>
+          <p class="text-yellow-600 font-bold mt-2">S/ Precio</p>
+          <a href="URL_DEL_PRODUCTO" class="inline-block mt-4 text-yellow-500 hover:underline">Ver más</a>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <!-- PIE DE PÁGINA -->
-  <footer class="bg-white shadow mt-12">
-    <div class="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
-      &copy; 2025 Tu Empresa. Todos los derechos reservados.
+  <!-- Pie de pagina -->
+  <footer class="bg-gray-900 text-white py-12 mt-12">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div>
+        <h3 class="text-xl font-bold mb-4 border-b border-white pb-2">Información de Contacto</h3>
+        <p class="flex items-start mb-3">
+          <i class="ri-map-pin-line text-white mr-2 mt-1"></i>
+          Av. Tingo María 1338, Breña, Lima, Perú
+        </p>
+        <p class="flex items-start">
+          <i class="ri-phone-line text-white mr-2 mt-1"></i>
+          +51 948 660 856
+        </p>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-4 border-b border-white pb-2">Horarios de Atención</h3>
+        <p class="flex items-start mb-1">
+          <i class="ri-time-line text-white mr-2 mt-1"></i>
+          Lunes a Viernes: 7:00 AM - 5:00 PM
+        </p>
+        <p class="flex items-start mb-1">
+          <i class="ri-time-line text-white mr-2 mt-1"></i>
+          Sábados: 7:00 AM - 1:00 PM
+        </p>
+        <p class="flex items-start mb-3">
+          <i class="ri-time-line text-white mr-2 mt-1"></i>
+          Domingos: Cerrado
+        </p>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 pt-6 text-center text-sm text-gray-400">
+      <p>© 2025 La Casa de las Puertas. Todos los derechos reservados.</p>
     </div>
   </footer>
 
-  <!-- SCRIPT -->
   <script>
-    const productos = [
-      {
-        nombre: "Cerradura Yale YL1",
-        descripcion: "Cerradura de alta seguridad para puertas principales.",
-        precio: "S/ 120.00",
-        imagen: "https://via.placeholder.com/300x300?text=Cerradura+YL1",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+YL1",
-        categoria: "entrada"
-      },
-      {
-        nombre: "Cerradura Interior Basic",
-        descripcion: "Ideal para habitaciones o baños.",
-        precio: "S/ 50.00",
-        imagen: "https://via.placeholder.com/300x300?text=Cerradura+Interior",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
-        categoria: "interior"
-      },
-      {
-        nombre: "Cerradura Digital SmartLock",
-        descripcion: "Controla tu puerta con huella y app móvil.",
-        precio: "S/ 380.00",
-        imagen: "https://via.placeholder.com/300x300?text=Cerradura+Digital",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
-        categoria: "digital"
-      }
-      // Puedes seguir agregando productos con la misma estructura
-    ];
-
-    const contenedor = document.getElementById('contenedor-productos');
-    const botonesFiltro = document.querySelectorAll('.filtro-btn');
-
-    function renderizarProductos(categoria) {
-      contenedor.innerHTML = '';
-      const filtrados = productos.filter(p => p.categoria === categoria);
-      filtrados.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'bg-white shadow-lg rounded-xl overflow-hidden p-4 flex flex-col';
-        card.innerHTML = `
-          <img src="${p.imagen}" alt="${p.nombre}" class="h-52 object-cover rounded mb-4">
-          <h3 class="text-lg font-bold">${p.nombre}</h3>
-          <p class="text-sm text-gray-600 mb-2">${p.descripcion}</p>
-          <p class="font-semibold text-yellow-600 mb-4">${p.precio}</p>
-          <a href="${p.link}" target="_blank" class="mt-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
-            <i class="ri-whatsapp-line"></i> Consultar por WhatsApp
-          </a>
-        `;
-        contenedor.appendChild(card);
+    function filtrarProductos(categoria) {
+      const productos = document.querySelectorAll('.producto');
+      productos.forEach(producto => {
+        const cat = producto.getAttribute('data-categoria');
+        if (categoria === 'Todas' || cat === categoria) {
+          producto.style.display = 'block';
+        } else {
+          producto.style.display = 'none';
+        }
       });
     }
-
-    function filtrar(categoria) {
-      renderizarProductos(categoria);
-      botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
-      const activo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
-      if (activo) activo.classList.add('filtro-activo');
-    }
-
-    // Mostrar por defecto la categoría "entrada"
-    filtrar('entrada');
   </script>
-
-  <style>
-    .filtro-activo {
-      background-color: #1f2937; /* gris oscuro */
-      color: white;
-    }
-  </style>
-
 </body>
 </html>
-
