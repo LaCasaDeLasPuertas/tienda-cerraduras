@@ -146,7 +146,8 @@
         const card = document.createElement('div');
         card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm';
         card.innerHTML = `
-          <img src="${producto.imagen}" alt="${producto.nombre}" class="h-36 object-cover rounded mb-2">
+         <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-2">
+
           <h3 class="text-base font-semibold">${producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
           <p class="font-semibold text-yellow-600 mb-2">${producto.precio}</p>
