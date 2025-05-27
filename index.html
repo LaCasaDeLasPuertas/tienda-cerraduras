@@ -21,13 +21,6 @@
       background-color: #1f2937;
       color: white;
     }
-    .producto-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .producto-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
   </style>
 </head>
 <body class="bg-gray-100 font-montserrat">
@@ -67,20 +60,22 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 py-6 space-y-12">
-    <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-2 font-montserrat">
-      Nuestras Cerraduras
-    </h2>
+  <!-- Título -->
+<h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-2 font-montserrat">
+  Nuestras Cerraduras
+</h2>
 
-    <!-- Filtros -->
-    <div class="flex justify-center flex-wrap gap-3 mb-6">
-      <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Entrada</button>
-      <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Interior</button>
-      <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Digitales</button>
-    </div>
+<!-- Filtros -->
+<div class="flex justify-center flex-wrap gap-3 mb-6">
+  <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Entrada</button>
+  <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Interior</button>
+  <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Digitales</button>
+</div>
 
-    <!-- Contenedor de productos -->
-    <div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"></div>
-  </main>
+  <!-- Contenedor de productos -->
+<div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"></div>
+</main>
+
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12 mt-12">
@@ -119,7 +114,105 @@
 
   <!-- Script para productos -->
   <script>
-    const productos = [...]; // Usa aquí todos tus productos existentes sin modificarlos
+    const productos = [
+      {
+        nombre: "G60 Cuadrada Ac Inox",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 260.00",
+        imagen: "cuadrada-acinox",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+YL1",
+        categoria: "entrada"
+      },
+      {
+        nombre: "G60 Cuadrada Negro Mate",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 260.00",
+        imagen: "cuadrada-negro",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
+        categoria: "entrada"
+      },
+            {
+        nombre: "G60 Ondeado Ac Inox",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 250.00",
+        imagen: "onda",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
+        categoria: "entrada"
+      },
+            {
+        nombre: "G60 Estandár Ac Inox",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 240.00",
+        imagen: "estandar-acinox",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
+        categoria: "entrada"
+      },
+            {
+        nombre: "G60 Estandar Negro Mate",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 240.00",
+        imagen: "estandar-negro",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
+        categoria: "entrada"
+      },
+       {
+        nombre: "G60 Redonda Ac Inox",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 240.00",
+        imagen: "redonda",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
+        categoria: "entrada"
+      },
+      {
+        nombre: "G60 Clasica Bronce Pulido",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 285.00",
+        imagen: "clasica-dorado",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
+        categoria: "entrada"
+      },
+       {
+        nombre: "G60 Moderna Bronce Pulido",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 285.00",
+        imagen: "moderna-dorado",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
+        categoria: "entrada"
+      },
+       {
+        nombre: "G60 Moderna Bronce Antiguo",
+        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
+        precio: "S/ 285.00",
+        imagen: "moderna-ba",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
+        categoria: "entrada"
+      },
+            {
+        nombre: "S900",
+        descripcion: "Cerradura de Sobreponer CANTOL, blindada. Vive tranquilo, con maxima seguridad.",
+        precio: "S/ 99.00",
+        imagen: "s900",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
+        categoria: "entrada"
+      },
+            {
+        nombre: "Tranca",
+        descripcion: "Tranca CANTOL.",
+        precio: "S/ 199.00",
+        imagen: "tranca",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
+        categoria: "entrada"
+      },
+            {
+        nombre: "Cantol Bold Digital",
+        descripcion: "Cerradura inteligente, se abre con bluetooth y PIN. Historial de accesos. Cerradura de embutir de 3 golpes. Disponible con manija Cuadrada y Estandar.",
+        precio: "S/ 1599.00",
+        imagen: "cantolbold",
+        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
+        categoria: "digital"
+      },
+      // Agrega más productos si deseas
+    ];
 
     const contenedor = document.getElementById('contenedor-productos');
     const botonesFiltro = document.querySelectorAll('.filtro-btn');
@@ -129,16 +222,20 @@
       const productosFiltrados = productos.filter(producto => producto.categoria === filtroCategoria);
       productosFiltrados.forEach(producto => {
         const card = document.createElement('div');
-        card.className = 'producto-card bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm';
-        card.innerHTML = `
-          <img src="${producto.imagen}" alt="${producto.nombre}" class="w-full h-40 object-cover rounded mb-3">
+        card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm';
+        card.innerHTML = 
+      <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">
+
+
+
+
           <h3 class="text-base font-semibold">${producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
           <p class="font-semibold text-yellow-600 mb-2">${producto.precio}</p>
           <a href="${producto.link}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1">
             <i class="ri-whatsapp-line text-base"></i> Consultar
           </a>
-        `;
+        ;
         contenedor.appendChild(card);
       });
     }
@@ -146,7 +243,7 @@
     function filtrar(categoria) {
       renderizarProductos(categoria);
       botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
-      const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
+      const btnActivo = document.querySelector(.filtro-btn[data-categoria="${categoria}"]);
       if (btnActivo) btnActivo.classList.add('filtro-activo');
     }
 
@@ -154,4 +251,3 @@
   </script>
 </body>
 </html>
-
