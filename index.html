@@ -21,6 +21,13 @@
       background-color: #1f2937;
       color: white;
     }
+    .producto-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .producto-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body class="bg-gray-100 font-montserrat">
@@ -60,7 +67,6 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 py-6 space-y-12">
-    <!-- Título -->
     <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-2 font-montserrat">
       Nuestras Cerraduras
     </h2>
@@ -73,7 +79,7 @@
     </div>
 
     <!-- Contenedor de productos -->
-    <div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+    <div id="contenedor-productos" class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"></div>
   </main>
 
   <!-- Footer -->
@@ -113,17 +119,7 @@
 
   <!-- Script para productos -->
   <script>
-    const productos = [
-      {
-        nombre: "G60 Cuadrada Ac Inox",
-        descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
-        precio: "S/ 260.00",
-        imagen: "cuadrada-acinox",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+YL1",
-        categoria: "entrada"
-      },
-      // ... (más productos)
-    ];
+    const productos = [...]; // Usa aquí todos tus productos existentes sin modificarlos
 
     const contenedor = document.getElementById('contenedor-productos');
     const botonesFiltro = document.querySelectorAll('.filtro-btn');
@@ -133,9 +129,9 @@
       const productosFiltrados = productos.filter(producto => producto.categoria === filtroCategoria);
       productosFiltrados.forEach(producto => {
         const card = document.createElement('div');
-        card.className = 'bg-white shadow-md rounded-xl overflow-hidden p-2 flex flex-col text-sm';
+        card.className = 'producto-card bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm';
         card.innerHTML = `
-          <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">
+          <img src="${producto.imagen}" alt="${producto.nombre}" class="w-full h-40 object-cover rounded mb-3">
           <h3 class="text-base font-semibold">${producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
           <p class="font-semibold text-yellow-600 mb-2">${producto.precio}</p>
@@ -158,6 +154,4 @@
   </script>
 </body>
 </html>
-
-
 
