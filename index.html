@@ -21,6 +21,55 @@
       background-color: #1f2937;
       color: white;
     }
+    .miniatura-activa {
+      border: 2px solid #fbbf24;
+      opacity: 1;
+    }
+    .miniatura {
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .miniatura:hover {
+      opacity: 1;
+    }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      flex-shrink: 0;
+    }
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+    .carousel-nav:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .carousel-nav.prev {
+      left: 8px;
+    }
+    .carousel-nav.next {
+      right: 8px;
+    }
   </style>
 </head>
 <body class="bg-gray-100 font-montserrat">
@@ -112,85 +161,107 @@
         nombre: "G60 Cuadrada Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 260.00",
-        imagen: "cuadrada-acinox",
+        imagenes: ["cuadrada-acinox"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Cuadrada Negro Mate",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 260.00",
-        imagen: "cuadrada-negro",
+        imagenes: ["cuadrada-negro"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Ondeado Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 250.00",
-        imagen: "onda",
+        imagenes: ["onda"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Estandár Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
-        imagen: "estandar-acinox",
+        imagenes: ["estandar-acinox"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Estandar Negro Mate",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
-        imagen: "estandar-negro",
+        imagenes: ["estandar-negro"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Redonda Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
-        imagen: "redonda",
+        imagenes: ["redonda"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Clasica Bronce Pulido",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
-        imagen: "clasica-dorado",
+        imagenes: ["clasica-dorado"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Moderna Bronce Pulido",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
-        imagen: "moderna-dorado",
+        imagenes: ["moderna-dorado"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Moderna Bronce Antiguo",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
-        imagen: "moderna-ba",
+        imagenes: ["moderna-ba"],
         categoria: "entrada"
       },
       {
         nombre: "S900",
         descripcion: "Cerradura de Sobreponer CANTOL, blindada. Vive tranquilo, con maxima seguridad.",
         precio: "S/ 99.00",
-        imagen: "s900",
+        imagenes: ["s900"],
         categoria: "entrada"
       },
       {
         nombre: "Tranca",
         descripcion: "Tranca CANTOL.",
         precio: "S/ 199.00",
-        imagen: "tranca",
+        imagenes: ["tranca"],
         categoria: "entrada"
       },
       {
         nombre: "Cantol Bold Digital",
-        descripcion: "Cerradura inteligente, se abre con bluetooth y PIN. Historial de accesos. Cerradura de embutir de 3 golpes. Disponible con manija Cuadrada y Estandar.",
+        descripcion: "Cerradura de embutir de 3 golpes inteligente. Consultar para mayor información.",
         precio: "S/ 1599.00",
-        imagen: "cantolbold",
+        imagenes: ["cantolbold"],
         categoria: "digital"
+      },
+      // Productos de interior con múltiples fotos
+      {
+        nombre: "Cerradura Interior Premium",
+        descripcion: "Cerradura de interior con múltiples acabados disponibles.",
+        precio: "S/ 180.00",
+        imagenes: ["interior-premium-1", "interior-premium-2", "interior-premium-3", "interior-premium-4"],
+        categoria: "interior"
+      },
+      {
+        nombre: "Cerradura Interior Clásica",
+        descripcion: "Cerradura tradicional disponible en varios colores.",
+        precio: "S/ 150.00",
+        imagenes: ["interior-clasica-1", "interior-clasica-2", "interior-clasica-3"],
+        categoria: "interior"
+      },
+      {
+        nombre: "Cerradura Interior Moderna",
+        descripcion: "Diseño contemporáneo con diferentes acabados.",
+        precio: "S/ 200.00",
+        imagenes: ["interior-moderna-1", "interior-moderna-2", "interior-moderna-3", "interior-moderna-4", "interior-moderna-5"],
+        categoria: "interior"
       }
     ];
 
@@ -203,17 +274,57 @@
       return `https://wa.me/51948660856?text=${mensajeEncoded}`;
     }
 
+    function crearCarousel(producto, index) {
+      if (producto.imagenes.length === 1) {
+        return `<img src="${producto.imagenes[0]}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">`;
+      }
+
+      const carouselId = `carousel-${index}`;
+      const miniaturas = producto.imagenes.map((img, imgIndex) => 
+        `<img src="${img}" alt="${producto.nombre} ${imgIndex + 1}" 
+             class="miniatura w-8 h-8 object-cover rounded cursor-pointer ${imgIndex === 0 ? 'miniatura-activa' : ''}" 
+             onclick="cambiarImagen('${carouselId}', ${imgIndex})">`
+      ).join('');
+
+      const slides = producto.imagenes.map(img => 
+        `<div class="carousel-slide">
+           <img src="${img}" alt="${producto.nombre}" class="aspect-square object-cover w-full">
+         </div>`
+      ).join('');
+
+      return `
+        <div class="mb-2">
+          <div class="flex justify-center gap-1 mb-2">${miniaturas}</div>
+        </div>
+        <div class="carousel-container rounded mb-3" id="${carouselId}">
+          <div class="carousel-track" id="${carouselId}-track">
+            ${slides}
+          </div>
+          ${producto.imagenes.length > 1 ? `
+            <button class="carousel-nav prev" onclick="navegarCarousel('${carouselId}', -1)">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="carousel-nav next" onclick="navegarCarousel('${carouselId}', 1)">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          ` : ''}
+        </div>
+      `;
+    }
+
     function renderizarProductos(categoria) {
       contenedor.innerHTML = '';
       const productosFiltrados = productos.filter(p => p.categoria === categoria);
-      productosFiltrados.forEach(producto => {
+      
+      productosFiltrados.forEach((producto, index) => {
         const card = document.createElement('div');
-       card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm transform transition-transform duration-300 hover:scale-105 hover:shadow-lg';
+        card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm transform transition-transform duration-300 hover:scale-105 hover:shadow-lg';
 
         const linkWhatsApp = generarLinkWhatsApp(producto.nombre);
+        const carouselHTML = crearCarousel(producto, index);
 
         card.innerHTML = `
-          <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">
+          ${carouselHTML}
           <h3 class="text-base font-semibold">${producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
           <p class="font-semibold text-yellow-600 mb-2">${producto.precio}</p>
@@ -225,6 +336,53 @@
       });
     }
 
+    function navegarCarousel(carouselId, direccion) {
+      const carousel = document.getElementById(carouselId);
+      const track = document.getElementById(`${carouselId}-track`);
+      const slides = track.children;
+      
+      if (!carousel.dataset.currentSlide) {
+        carousel.dataset.currentSlide = '0';
+      }
+      
+      let currentSlide = parseInt(carousel.dataset.currentSlide);
+      currentSlide += direccion;
+      
+      if (currentSlide < 0) currentSlide = slides.length - 1;
+      if (currentSlide >= slides.length) currentSlide = 0;
+      
+      carousel.dataset.currentSlide = currentSlide;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Actualizar miniaturas
+      const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
+      miniaturas.forEach((miniatura, index) => {
+        if (index === currentSlide) {
+          miniatura.classList.add('miniatura-activa');
+        } else {
+          miniatura.classList.remove('miniatura-activa');
+        }
+      });
+    }
+
+    function cambiarImagen(carouselId, imageIndex) {
+      const carousel = document.getElementById(carouselId);
+      const track = document.getElementById(`${carouselId}-track`);
+      
+      carousel.dataset.currentSlide = imageIndex;
+      track.style.transform = `translateX(-${imageIndex * 100}%)`;
+      
+      // Actualizar miniaturas
+      const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
+      miniaturas.forEach((miniatura, index) => {
+        if (index === imageIndex) {
+          miniatura.classList.add('miniatura-activa');
+        } else {
+          miniatura.classList.remove('miniatura-activa');
+        }
+      });
+    }
+
     function filtrar(categoria) {
       renderizarProductos(categoria);
       botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
@@ -232,8 +390,11 @@
       if (btnActivo) btnActivo.classList.add('filtro-activo');
     }
 
+    // Exponer funciones globalmente
+    window.navegarCarousel = navegarCarousel;
+    window.cambiarImagen = cambiarImagen;
+
     filtrar('entrada');
   </script>
 </body>
 </html>
-
