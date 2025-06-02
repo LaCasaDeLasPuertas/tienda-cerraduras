@@ -248,9 +248,10 @@
       // Productos de interior con múltiples fotos
       {
         nombre: "Cerradura Interior Premium",
-        descripcion: "Cerradura de perilla.",
-        precio: "S/ 45.00",
-        imagenes: ["bola50", "bola60", "bola70", "bola80"],
+        descripcion: "Cerradura de interior con múltiples acabados disponibles.",
+        precio: "S/ 180.00",
+        imagenes: ["interior-premium-1", "interior-premium-2", "interior-premium-3", "interior-premium-4"],
+        nombres: ["Interior Premium NEGRO MATE", "Interior Premium AC INOX", "Interior Premium BRONCE PULIDO", "Interior Premium BRONCE ANTIGUO"],
         categoria: "interior"
       },
       {
@@ -258,13 +259,15 @@
         descripcion: "Cerradura tradicional disponible en varios colores.",
         precio: "S/ 150.00",
         imagenes: ["interior-clasica-1", "interior-clasica-2", "interior-clasica-3"],
+        nombres: ["Interior Clásica AC INOX", "Interior Clásica BRONCE PULIDO", "Interior Clásica NEGRO MATE"],
         categoria: "interior"
       },
       {
-        nombre: "Cerradura Interior Moderna",
-        descripcion: "Diseño contemporáneo con diferentes acabados.",
+        nombre: "Cerradura modelo perilla",
+        descripcion: "Cerradura de perilla disponible en diferentes acabados.",
         precio: "S/ 200.00",
-        imagenes: ["interior-moderna-1", "interior-moderna-2", "interior-moderna-3", "interior-moderna-4", "interior-moderna-5"],
+        imagenes: ["bola50", "bola60", "bola70", "bola80"],
+        nombres: ["Cerradura modelo perilla NEGRO MATE", "Cerradura modelo perilla AC INOX", "Cerradura modelo perilla BRONCE PULIDO", "Cerradura modelo perilla BRONCE ANTIGUO"],
         categoria: "interior"
       }
     ];
@@ -285,9 +288,9 @@
 
       const carouselId = `carousel-${index}`;
       const miniaturas = producto.imagenes.map((img, imgIndex) => 
-        `<img src="${img}" alt="${producto.nombre} ${imgIndex + 1}" 
+        `<img src="${img}" alt="${producto.nombres ? producto.nombres[imgIndex] : producto.nombre} ${imgIndex + 1}" 
              class="miniatura w-8 h-8 object-cover rounded cursor-pointer ${imgIndex === 0 ? 'miniatura-activa' : ''}" 
-             onclick="cambiarImagen('${carouselId}', ${imgIndex})">`
+             onclick="cambiarImagen('${carouselId}', ${imgIndex}, ${index})">`
       ).join('');
 
       const slides = producto.imagenes.map(img => 
@@ -297,21 +300,21 @@
       ).join('');
 
       return `
-        <div class="mb-2">
-          <div class="flex justify-center gap-1 mb-2">${miniaturas}</div>
-        </div>
-        <div class="carousel-container mb-3" id="${carouselId}">
+        <div class="carousel-container mb-2" id="${carouselId}">
           <div class="carousel-track" id="${carouselId}-track">
             ${slides}
           </div>
           ${producto.imagenes.length > 1 ? `
-            <button class="carousel-nav prev" onclick="navegarCarousel('${carouselId}', -1)">
+            <button class="carousel-nav prev" onclick="navegarCarousel('${carouselId}', -1, ${index})">
               <i class="ri-arrow-left-s-line"></i>
             </button>
-            <button class="carousel-nav next" onclick="navegarCarousel('${carouselId}', 1)">
+            <button class="carousel-nav next" onclick="navegarCarousel('${carouselId}', 1, ${index})">
               <i class="ri-arrow-right-s-line"></i>
             </button>
           ` : ''}
+        </div>
+        <div class="mb-3">
+          <div class="flex justify-center gap-1">${miniaturas}</div>
         </div>
       `;
     }
@@ -329,18 +332,87 @@
 
         card.innerHTML = `
           ${carouselHTML}
-          <h3 class="text-base font-semibold">${producto.nombre}</h3>
+          <h3 class="text-base font-semibold" id="nombre-producto-${index}">${producto.nombres ? producto.nombres[0] : producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
           <p class="font-semibold text-yellow-600 mb-2">${producto.precio}</p>
-          <a href="${linkWhatsApp}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1">
+          <a href="${linkWhatsApp}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1" id="whatsapp-link-${index}">
             <i class="ri-whatsapp-line text-base"></i> Consultar
           </a>
         `;
         contenedor.appendChild(card);
+
+        // Añadir eventos de touch para deslizamiento en móviles
+        if (producto.imagenes.length > 1) {
+          const carousel = card.querySelector(`#carousel-${index}`);
+          let startX = 0;
+          let currentX = 0;
+          let isDragging = false;
+
+          carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+          });
+
+          carousel.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            currentX = e.touches[0].clientX;
+          });
+
+          carousel.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diffX = startX - currentX;
+            const threshold = 50; // Umbral mínimo para considerar el deslizamiento
+            
+            if (Math.abs(diffX) > threshold) {
+              if (diffX > 0) {
+                // Deslizar hacia la izquierda (siguiente imagen)
+                navegarCarousel(`carousel-${index}`, 1, index);
+              } else {
+                // Deslizar hacia la derecha (imagen anterior)
+                navegarCarousel(`carousel-${index}`, -1, index);
+              }
+            }
+          });
+
+          // También añadir soporte para mouse drag en desktop
+          carousel.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            e.preventDefault();
+          });
+
+          carousel.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX;
+          });
+
+          carousel.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diffX = startX - currentX;
+            const threshold = 50;
+            
+            if (Math.abs(diffX) > threshold) {
+              if (diffX > 0) {
+                navegarCarousel(`carousel-${index}`, 1, index);
+              } else {
+                navegarCarousel(`carousel-${index}`, -1, index);
+              }
+            }
+          });
+
+          carousel.addEventListener('mouseleave', () => {
+            isDragging = false;
+          });
+        }
       });
     }
 
-    function navegarCarousel(carouselId, direccion) {
+    function navegarCarousel(carouselId, direccion, productoIndex = null) {
       const carousel = document.getElementById(carouselId);
       const track = document.getElementById(`${carouselId}-track`);
       const slides = track.children;
@@ -367,9 +439,14 @@
           miniatura.classList.remove('miniatura-activa');
         }
       });
+
+      // Actualizar nombre del producto si tiene nombres específicos
+      if (productoIndex !== null) {
+        actualizarNombreProducto(productoIndex, currentSlide);
+      }
     }
 
-    function cambiarImagen(carouselId, imageIndex) {
+    function cambiarImagen(carouselId, imageIndex, productoIndex = null) {
       const carousel = document.getElementById(carouselId);
       const track = document.getElementById(`${carouselId}-track`);
       
@@ -385,6 +462,31 @@
           miniatura.classList.remove('miniatura-activa');
         }
       });
+
+      // Actualizar nombre del producto si tiene nombres específicos
+      if (productoIndex !== null) {
+        actualizarNombreProducto(productoIndex, imageIndex);
+      }
+    }
+
+    function actualizarNombreProducto(productoIndex, imageIndex) {
+      const productosFiltrados = productos.filter(p => p.categoria === document.querySelector('.filtro-activo').dataset.categoria);
+      const producto = productosFiltrados[productoIndex];
+      
+      if (producto && producto.nombres && producto.nombres[imageIndex]) {
+        const nombreElement = document.getElementById(`nombre-producto-${productoIndex}`);
+        const whatsappLink = document.getElementById(`whatsapp-link-${productoIndex}`);
+        
+        if (nombreElement) {
+          nombreElement.textContent = producto.nombres[imageIndex];
+        }
+        
+        // Actualizar link de WhatsApp con el nuevo nombre
+        if (whatsappLink) {
+          const nuevoLink = generarLinkWhatsApp(producto.nombres[imageIndex]);
+          whatsappLink.href = nuevoLink;
+        }
+      }
     }
 
     function filtrar(categoria) {
