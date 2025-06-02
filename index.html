@@ -66,6 +66,7 @@
       <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="entrada" onclick="filtrar('entrada')">Entrada</button>
       <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="interior" onclick="filtrar('interior')">Interior</button>
       <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="digital" onclick="filtrar('digital')">Digitales</button>
+      <button class="filtro-btn px-4 py-2 border rounded-full text-sm font-semibold transition" data-categoria="accesorios" onclick="filtrar('accesorios')">Accesorios</button>
     </div>
 
     <div id="contenedor-productos" class="grid gap-4 grid-cols-2 md:grid-cols-4"></div>
@@ -112,7 +113,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 260.00",
         imagen: "cuadrada-acinox",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+YL1",
         categoria: "entrada"
       },
       {
@@ -120,7 +120,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 260.00",
         imagen: "cuadrada-negro",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
         categoria: "entrada"
       },
       {
@@ -128,7 +127,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 250.00",
         imagen: "onda",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
         categoria: "entrada"
       },
       {
@@ -136,7 +134,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
         imagen: "estandar-acinox",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
         categoria: "entrada"
       },
       {
@@ -144,7 +141,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
         imagen: "estandar-negro",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
         categoria: "entrada"
       },
       {
@@ -152,7 +148,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
         imagen: "redonda",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Interior",
         categoria: "entrada"
       },
       {
@@ -160,7 +155,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
         imagen: "clasica-dorado",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
         categoria: "entrada"
       },
       {
@@ -168,7 +162,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
         imagen: "moderna-dorado",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
         categoria: "entrada"
       },
       {
@@ -176,7 +169,6 @@
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
         imagen: "moderna-ba",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
         categoria: "entrada"
       },
       {
@@ -184,7 +176,6 @@
         descripcion: "Cerradura de Sobreponer CANTOL, blindada. Vive tranquilo, con maxima seguridad.",
         precio: "S/ 99.00",
         imagen: "s900",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
         categoria: "entrada"
       },
       {
@@ -192,7 +183,6 @@
         descripcion: "Tranca CANTOL.",
         precio: "S/ 199.00",
         imagen: "tranca",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
         categoria: "entrada"
       },
       {
@@ -200,13 +190,18 @@
         descripcion: "Cerradura inteligente, se abre con bluetooth y PIN. Historial de accesos. Cerradura de embutir de 3 golpes. Disponible con manija Cuadrada y Estandar.",
         precio: "S/ 1599.00",
         imagen: "cantolbold",
-        link: "https://wa.me/51948660856?text=Estoy+interesado+en+la+Cerradura+Digital",
         categoria: "digital"
       }
     ];
 
     const contenedor = document.getElementById('contenedor-productos');
     const botonesFiltro = document.querySelectorAll('.filtro-btn');
+
+    function generarLinkWhatsApp(nombreProducto) {
+      const mensaje = `Hola! Estoy interesado en ${nombreProducto}`;
+      const mensajeEncoded = encodeURIComponent(mensaje);
+      return `https://wa.me/51948660856?text=${mensajeEncoded}`;
+    }
 
     function renderizarProductos(categoria) {
       contenedor.innerHTML = '';
@@ -215,12 +210,14 @@
         const card = document.createElement('div');
        card.className = 'bg-white shadow-md rounded-lg overflow-hidden p-2 flex flex-col text-sm transform transition-transform duration-300 hover:scale-105 hover:shadow-lg';
 
+        const linkWhatsApp = generarLinkWhatsApp(producto.nombre);
+
         card.innerHTML = `
           <img src="${producto.imagen}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">
           <h3 class="text-base font-semibold">${producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
           <p class="font-semibold text-yellow-600 mb-2">${producto.precio}</p>
-          <a href="${producto.link}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1">
+          <a href="${linkWhatsApp}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1">
             <i class="ri-whatsapp-line text-base"></i> Consultar
           </a>
         `;
