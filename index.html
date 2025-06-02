@@ -35,14 +35,18 @@
     .carousel-container {
       position: relative;
       overflow: hidden;
+      aspect-ratio: 1;
+      border-radius: 0.5rem;
     }
     .carousel-track {
       display: flex;
       transition: transform 0.3s ease;
+      height: 100%;
     }
     .carousel-slide {
       min-width: 100%;
       flex-shrink: 0;
+      height: 100%;
     }
     .carousel-nav {
       position: absolute;
@@ -243,9 +247,9 @@
       },
       // Productos de interior con múltiples fotos
       {
-        nombre: "Cerradura de Perilla",
+        nombre: "Cerradura Interior Premium",
         descripcion: "Cerradura de interior con múltiples acabados disponibles.",
-        precio: "S/ 45.00",
+        precio: "S/ 180.00",
         imagenes: ["interior-premium-1", "interior-premium-2", "interior-premium-3", "interior-premium-4"],
         categoria: "interior"
       },
@@ -260,7 +264,7 @@
         nombre: "Cerradura Interior Moderna",
         descripcion: "Diseño contemporáneo con diferentes acabados.",
         precio: "S/ 200.00",
-        imagenes: ["bola60", "bola70", "bola80", "bola50"],
+        imagenes: ["interior-moderna-1", "interior-moderna-2", "interior-moderna-3", "interior-moderna-4", "interior-moderna-5"],
         categoria: "interior"
       }
     ];
@@ -288,7 +292,7 @@
 
       const slides = producto.imagenes.map(img => 
         `<div class="carousel-slide">
-           <img src="${img}" alt="${producto.nombre}" class="aspect-square object-cover w-full">
+           <img src="${img}" alt="${producto.nombre}" class="w-full h-full object-cover">
          </div>`
       ).join('');
 
@@ -296,7 +300,7 @@
         <div class="mb-2">
           <div class="flex justify-center gap-1 mb-2">${miniaturas}</div>
         </div>
-        <div class="carousel-container rounded mb-3" id="${carouselId}">
+        <div class="carousel-container mb-3" id="${carouselId}">
           <div class="carousel-track" id="${carouselId}-track">
             ${slides}
           </div>
