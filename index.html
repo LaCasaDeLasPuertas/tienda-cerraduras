@@ -37,11 +37,13 @@
       overflow: hidden;
       aspect-ratio: 1;
       border-radius: 0.5rem;
+      touch-action: pan-y pinch-zoom;
     }
     .carousel-track {
       display: flex;
       transition: transform 0.3s ease;
       height: 100%;
+      will-change: transform;
     }
     .carousel-slide {
       min-width: 100%;
@@ -64,6 +66,7 @@
       align-items: center;
       justify-content: center;
       transition: background-color 0.3s;
+      z-index: 10;
     }
     .carousel-nav:hover {
       background: rgba(0, 0, 0, 0.7);
@@ -73,6 +76,34 @@
     }
     .carousel-nav.next {
       right: 8px;
+    }
+    
+    /* Mejorar la experiencia táctil */
+    .carousel-container img {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      pointer-events: none;
+    }
+    
+    /* Indicadores visuales para el deslizamiento */
+    .carousel-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.1) 100%);
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .carousel-container.dragging::before {
+      opacity: 1;
     }
   </style>
 </head>
@@ -165,84 +196,84 @@
         nombre: "G60 Cuadrada Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 260.00",
-        imagenes: ["cuadrada-acinox"],
+        imagenes: ["https://via.placeholder.com/300x300/4A5568/FFFFFF?text=G60+Cuadrada"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Cuadrada Negro Mate",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 260.00",
-        imagenes: ["cuadrada-negro"],
+        imagenes: ["https://via.placeholder.com/300x300/2D3748/FFFFFF?text=G60+Negro"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Ondeado Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 250.00",
-        imagenes: ["onda"],
+        imagenes: ["https://via.placeholder.com/300x300/4A5568/FFFFFF?text=G60+Ondeado"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Estandár Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
-        imagenes: ["estandar-acinox"],
+        imagenes: ["https://via.placeholder.com/300x300/4A5568/FFFFFF?text=G60+Estandar"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Estandar Negro Mate",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
-        imagenes: ["estandar-negro"],
+        imagenes: ["https://via.placeholder.com/300x300/2D3748/FFFFFF?text=G60+Negro+Std"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Redonda Ac Inox",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 240.00",
-        imagenes: ["redonda"],
+        imagenes: ["https://via.placeholder.com/300x300/4A5568/FFFFFF?text=G60+Redonda"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Clasica Bronce Pulido",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
-        imagenes: ["clasica-dorado"],
+        imagenes: ["https://via.placeholder.com/300x300/B7791F/FFFFFF?text=G60+Clasica"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Moderna Bronce Pulido",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
-        imagenes: ["moderna-dorado"],
+        imagenes: ["https://via.placeholder.com/300x300/B7791F/FFFFFF?text=G60+Moderna"],
         categoria: "entrada"
       },
       {
         nombre: "G60 Moderna Bronce Antiguo",
         descripcion: "Cerradura de embutir CANTOL, 3 golpes.",
         precio: "S/ 285.00",
-        imagenes: ["moderna-ba"],
+        imagenes: ["https://via.placeholder.com/300x300/92400E/FFFFFF?text=G60+Moderna+BA"],
         categoria: "entrada"
       },
       {
         nombre: "S900",
         descripcion: "Cerradura de Sobreponer CANTOL, blindada. Vive tranquilo, con maxima seguridad.",
         precio: "S/ 99.00",
-        imagenes: ["s900"],
+        imagenes: ["https://via.placeholder.com/300x300/6B7280/FFFFFF?text=S900"],
         categoria: "entrada"
       },
       {
         nombre: "Tranca",
         descripcion: "Tranca CANTOL.",
         precio: "S/ 199.00",
-        imagenes: ["tranca"],
+        imagenes: ["https://via.placeholder.com/300x300/374151/FFFFFF?text=Tranca"],
         categoria: "entrada"
       },
       {
         nombre: "Cantol Bold Digital",
         descripcion: "Cerradura de embutir de 3 golpes inteligente. Consultar para mayor información.",
         precio: "S/ 1599.00",
-        imagenes: ["cantolbold"],
+        imagenes: ["https://via.placeholder.com/300x300/1F2937/FFFFFF?text=Digital+Bold"],
         categoria: "digital"
       },
       // Productos de interior con múltiples fotos
@@ -250,7 +281,12 @@
         nombre: "Cerradura Interior Premium",
         descripcion: "Cerradura de interior con múltiples acabados disponibles.",
         precio: "S/ 180.00",
-        imagenes: ["interior-premium-1", "interior-premium-2", "interior-premium-3", "interior-premium-4"],
+        imagenes: [
+          "https://via.placeholder.com/300x300/2D3748/FFFFFF?text=Premium+Negro",
+          "https://via.placeholder.com/300x300/4A5568/FFFFFF?text=Premium+Inox",
+          "https://via.placeholder.com/300x300/B7791F/FFFFFF?text=Premium+Bronce",
+          "https://via.placeholder.com/300x300/92400E/FFFFFF?text=Premium+BA"
+        ],
         nombres: ["Interior Premium NEGRO MATE", "Interior Premium AC INOX", "Interior Premium BRONCE PULIDO", "Interior Premium BRONCE ANTIGUO"],
         categoria: "interior"
       },
@@ -258,7 +294,11 @@
         nombre: "Cerradura Interior Clásica",
         descripcion: "Cerradura tradicional disponible en varios colores.",
         precio: "S/ 150.00",
-        imagenes: ["interior-clasica-1", "interior-clasica-2", "interior-clasica-3"],
+        imagenes: [
+          "https://via.placeholder.com/300x300/4A5568/FFFFFF?text=Clasica+Inox",
+          "https://via.placeholder.com/300x300/B7791F/FFFFFF?text=Clasica+Bronce",
+          "https://via.placeholder.com/300x300/2D3748/FFFFFF?text=Clasica+Negro"
+        ],
         nombres: ["Interior Clásica AC INOX", "Interior Clásica BRONCE PULIDO", "Interior Clásica NEGRO MATE"],
         categoria: "interior"
       },
@@ -266,7 +306,12 @@
         nombre: "Cerradura modelo perilla",
         descripcion: "Cerradura de perilla disponible en diferentes acabados.",
         precio: "S/ 200.00",
-        imagenes: ["bola50", "bola60", "bola70", "bola80"],
+        imagenes: [
+          "https://via.placeholder.com/300x300/2D3748/FFFFFF?text=Perilla+Negro",
+          "https://via.placeholder.com/300x300/4A5568/FFFFFF?text=Perilla+Inox",
+          "https://via.placeholder.com/300x300/B7791F/FFFFFF?text=Perilla+Bronce",
+          "https://via.placeholder.com/300x300/92400E/FFFFFF?text=Perilla+BA"
+        ],
         nombres: ["Cerradura modelo perilla NEGRO MATE", "Cerradura modelo perilla AC INOX", "Cerradura modelo perilla BRONCE PULIDO", "Cerradura modelo perilla BRONCE ANTIGUO"],
         categoria: "interior"
       }
@@ -274,6 +319,9 @@
 
     const contenedor = document.getElementById('contenedor-productos');
     const botonesFiltro = document.querySelectorAll('.filtro-btn');
+
+    // Variables globales para el seguimiento del carrusel
+    let carouselStates = {};
 
     function generarLinkWhatsApp(nombreProducto) {
       const mensaje = `Hola! Estoy interesado en ${nombreProducto}`;
@@ -287,6 +335,8 @@
       }
 
       const carouselId = `carousel-${index}`;
+      carouselStates[carouselId] = { currentSlide: 0, totalSlides: producto.imagenes.length };
+      
       const miniaturas = producto.imagenes.map((img, imgIndex) => 
         `<img src="${img}" alt="${producto.nombres ? producto.nombres[imgIndex] : producto.nombre} ${imgIndex + 1}" 
              class="miniatura w-8 h-8 object-cover rounded cursor-pointer ${imgIndex === 0 ? 'miniatura-activa' : ''}" 
@@ -300,18 +350,16 @@
       ).join('');
 
       return `
-        <div class="carousel-container mb-2" id="${carouselId}">
+        <div class="carousel-container mb-2" id="${carouselId}" data-producto-index="${index}">
           <div class="carousel-track" id="${carouselId}-track">
             ${slides}
           </div>
-          ${producto.imagenes.length > 1 ? `
-            <button class="carousel-nav prev" onclick="navegarCarousel('${carouselId}', -1, ${index})">
-              <i class="ri-arrow-left-s-line"></i>
-            </button>
-            <button class="carousel-nav next" onclick="navegarCarousel('${carouselId}', 1, ${index})">
-              <i class="ri-arrow-right-s-line"></i>
-            </button>
-          ` : ''}
+          <button class="carousel-nav prev" onclick="navegarCarousel('${carouselId}', -1, ${index})">
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+          <button class="carousel-nav next" onclick="navegarCarousel('${carouselId}', 1, ${index})">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
         </div>
         <div class="mb-3">
           <div class="flex justify-center gap-1">${miniaturas}</div>
@@ -319,8 +367,102 @@
       `;
     }
 
+    function initializeTouchEvents(carousel, carouselId) {
+      let startX = 0;
+      let startY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let isDragging = false;
+      let startTime = 0;
+
+      // Función para manejar el inicio del touch/mouse
+      function handleStart(e) {
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        startX = clientX;
+        startY = clientY;
+        currentX = clientX;
+        currentY = clientY;
+        startTime = Date.now();
+        isDragging = true;
+        
+        carousel.classList.add('dragging');
+        
+        // Prevenir selección de texto en desktop
+        if (!e.touches) {
+          e.preventDefault();
+        }
+      }
+
+      // Función para manejar el movimiento
+      function handleMove(e) {
+        if (!isDragging) return;
+        
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        currentX = clientX;
+        currentY = clientY;
+        
+        // Calcular diferencias
+        const diffX = Math.abs(startX - currentX);
+        const diffY = Math.abs(startY - currentY);
+        
+        // Si el movimiento es más horizontal que vertical, prevenir scroll
+        if (diffX > diffY && diffX > 10) {
+          e.preventDefault();
+        }
+      }
+
+      // Función para manejar el final del touch/mouse
+      function handleEnd(e) {
+        if (!isDragging) return;
+        
+        isDragging = false;
+        carousel.classList.remove('dragging');
+        
+        const diffX = startX - currentX;
+        const diffY = startY - currentY;
+        const timeDiff = Date.now() - startTime;
+        const velocity = Math.abs(diffX) / timeDiff;
+        
+        // Determinar si fue un deslizamiento válido
+        const isHorizontalSwipe = Math.abs(diffX) > Math.abs(diffY);
+        const isSignificantDistance = Math.abs(diffX) > 50;
+        const isFastSwipe = velocity > 0.3;
+        
+        if (isHorizontalSwipe && (isSignificantDistance || isFastSwipe)) {
+          const productoIndex = parseInt(carousel.dataset.productoIndex);
+          if (diffX > 0) {
+            // Deslizar hacia la izquierda (siguiente imagen)
+            navegarCarousel(carouselId, 1, productoIndex);
+          } else {
+            // Deslizar hacia la derecha (imagen anterior)
+            navegarCarousel(carouselId, -1, productoIndex);
+          }
+        }
+      }
+
+      // Event listeners para touch
+      carousel.addEventListener('touchstart', handleStart, { passive: false });
+      carousel.addEventListener('touchmove', handleMove, { passive: false });
+      carousel.addEventListener('touchend', handleEnd, { passive: true });
+      carousel.addEventListener('touchcancel', handleEnd, { passive: true });
+
+      // Event listeners para mouse (desktop)
+      carousel.addEventListener('mousedown', handleStart);
+      carousel.addEventListener('mousemove', handleMove);
+      carousel.addEventListener('mouseup', handleEnd);
+      carousel.addEventListener('mouseleave', handleEnd);
+      
+      // Prevenir arrastrar imagen
+      carousel.addEventListener('dragstart', (e) => e.preventDefault());
+    }
+
     function renderizarProductos(categoria) {
       contenedor.innerHTML = '';
+      carouselStates = {};
       const productosFiltrados = productos.filter(p => p.categoria === categoria);
       
       productosFiltrados.forEach((producto, index) => {
@@ -341,127 +483,72 @@
         `;
         contenedor.appendChild(card);
 
-        // Añadir eventos de touch para deslizamiento en móviles
+        // Inicializar eventos táctiles solo para productos con múltiples imágenes
         if (producto.imagenes.length > 1) {
           const carousel = card.querySelector(`#carousel-${index}`);
-          let startX = 0;
-          let currentX = 0;
-          let isDragging = false;
-
-          carousel.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-          });
-
-          carousel.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            currentX = e.touches[0].clientX;
-          });
-
-          carousel.addEventListener('touchend', (e) => {
-            if (!isDragging) return;
-            isDragging = false;
-            
-            const diffX = startX - currentX;
-            const threshold = 50; // Umbral mínimo para considerar el deslizamiento
-            
-            if (Math.abs(diffX) > threshold) {
-              if (diffX > 0) {
-                // Deslizar hacia la izquierda (siguiente imagen)
-                navegarCarousel(`carousel-${index}`, 1, index);
-              } else {
-                // Deslizar hacia la derecha (imagen anterior)
-                navegarCarousel(`carousel-${index}`, -1, index);
-              }
-            }
-          });
-
-          // También añadir soporte para mouse drag en desktop
-          carousel.addEventListener('mousedown', (e) => {
-            startX = e.clientX;
-            isDragging = true;
-            e.preventDefault();
-          });
-
-          carousel.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            currentX = e.clientX;
-          });
-
-          carousel.addEventListener('mouseup', (e) => {
-            if (!isDragging) return;
-            isDragging = false;
-            
-            const diffX = startX - currentX;
-            const threshold = 50;
-            
-            if (Math.abs(diffX) > threshold) {
-              if (diffX > 0) {
-                navegarCarousel(`carousel-${index}`, 1, index);
-              } else {
-                navegarCarousel(`carousel-${index}`, -1, index);
-              }
-            }
-          });
-
-          carousel.addEventListener('mouseleave', () => {
-            isDragging = false;
-          });
+          if (carousel) {
+            initializeTouchEvents(carousel, `carousel-${index}`);
+          }
         }
       });
     }
 
     function navegarCarousel(carouselId, direccion, productoIndex = null) {
-      const carousel = document.getElementById(carouselId);
+      const state = carouselStates[carouselId];
+      if (!state) return;
+      
       const track = document.getElementById(`${carouselId}-track`);
-      const slides = track.children;
+      if (!track) return;
       
-      if (!carousel.dataset.currentSlide) {
-        carousel.dataset.currentSlide = '0';
-      }
+      let newSlide = state.currentSlide + direccion;
       
-      let currentSlide = parseInt(carousel.dataset.currentSlide);
-      currentSlide += direccion;
+      if (newSlide < 0) newSlide = state.totalSlides - 1;
+      if (newSlide >= state.totalSlides) newSlide = 0;
       
-      if (currentSlide < 0) currentSlide = slides.length - 1;
-      if (currentSlide >= slides.length) currentSlide = 0;
-      
-      carousel.dataset.currentSlide = currentSlide;
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      state.currentSlide = newSlide;
+      track.style.transform = `translateX(-${newSlide * 100}%)`;
       
       // Actualizar miniaturas
-      const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
-      miniaturas.forEach((miniatura, index) => {
-        if (index === currentSlide) {
-          miniatura.classList.add('miniatura-activa');
-        } else {
-          miniatura.classList.remove('miniatura-activa');
-        }
-      });
+      const carousel = document.getElementById(carouselId);
+      if (carousel) {
+        const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
+        miniaturas.forEach((miniatura, index) => {
+          if (index === newSlide) {
+            miniatura.classList.add('miniatura-activa');
+          } else {
+            miniatura.classList.remove('miniatura-activa');
+          }
+        });
+      }
 
       // Actualizar nombre del producto si tiene nombres específicos
       if (productoIndex !== null) {
-        actualizarNombreProducto(productoIndex, currentSlide);
+        actualizarNombreProducto(productoIndex, newSlide);
       }
     }
 
     function cambiarImagen(carouselId, imageIndex, productoIndex = null) {
-      const carousel = document.getElementById(carouselId);
-      const track = document.getElementById(`${carouselId}-track`);
+      const state = carouselStates[carouselId];
+      if (!state) return;
       
-      carousel.dataset.currentSlide = imageIndex;
+      const track = document.getElementById(`${carouselId}-track`);
+      if (!track) return;
+      
+      state.currentSlide = imageIndex;
       track.style.transform = `translateX(-${imageIndex * 100}%)`;
       
       // Actualizar miniaturas
-      const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
-      miniaturas.forEach((miniatura, index) => {
-        if (index === imageIndex) {
-          miniatura.classList.add('miniatura-activa');
-        } else {
-          miniatura.classList.remove('miniatura-activa');
-        }
-      });
+      const carousel = document.getElementById(carouselId);
+      if (carousel) {
+        const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
+        miniaturas.forEach((miniatura, index) => {
+          if (index === imageIndex) {
+            miniatura.classList.add('miniatura-activa');
+          } else {
+            miniatura.classList.remove('miniatura-activa');
+          }
+        });
+      }
 
       // Actualizar nombre del producto si tiene nombres específicos
       if (productoIndex !== null) {
@@ -500,6 +587,7 @@
     window.navegarCarousel = navegarCarousel;
     window.cambiarImagen = cambiarImagen;
 
+    // Inicializar con la categoría entrada
     filtrar('entrada');
   </script>
 </body>
