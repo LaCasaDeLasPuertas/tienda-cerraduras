@@ -310,32 +310,32 @@
     let carouselStates = {};
 
     function generarLinkWhatsApp(nombreProducto) {
-      const mensaje = `Hola! Estoy interesado en ${nombreProducto}`;
+      const mensaje = Hola! Estoy interesado en ${nombreProducto};
       const mensajeEncoded = encodeURIComponent(mensaje);
-      return `https://wa.me/51948660856?text=${mensajeEncoded}`;
+      return https://wa.me/51948660856?text=${mensajeEncoded};
     }
 
     function crearCarousel(producto, index) {
       if (producto.imagenes.length === 1) {
-        return `<img src="${producto.imagenes[0]}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">`;
+        return <img src="${producto.imagenes[0]}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">;
       }
 
-      const carouselId = `carousel-${index}`;
+      const carouselId = carousel-${index};
       carouselStates[carouselId] = { currentSlide: 0, totalSlides: producto.imagenes.length };
       
       const miniaturas = producto.imagenes.map((img, imgIndex) => 
-        `<img src="${img}" alt="${producto.nombres ? producto.nombres[imgIndex] : producto.nombre} ${imgIndex + 1}" 
+        <img src="${img}" alt="${producto.nombres ? producto.nombres[imgIndex] : producto.nombre} ${imgIndex + 1}" 
              class="miniatura w-8 h-8 object-cover rounded cursor-pointer ${imgIndex === 0 ? 'miniatura-activa' : ''}" 
-             onclick="cambiarImagen('${carouselId}', ${imgIndex}, ${index})">`
+             onclick="cambiarImagen('${carouselId}', ${imgIndex}, ${index})">
       ).join('');
 
       const slides = producto.imagenes.map(img => 
-        `<div class="carousel-slide">
+        <div class="carousel-slide">
            <img src="${img}" alt="${producto.nombre}" class="w-full h-full object-cover">
-         </div>`
+         </div>
       ).join('');
 
-      return `
+      return 
         <div class="carousel-container mb-2" id="${carouselId}" data-producto-index="${index}">
           <div class="carousel-track" id="${carouselId}-track">
             ${slides}
@@ -350,7 +350,7 @@
         <div class="mb-3">
           <div class="flex justify-center gap-1">${miniaturas}</div>
         </div>
-      `;
+      ;
     }
 
     function initializeTouchEvents(carousel, carouselId) {
@@ -458,7 +458,7 @@
         const linkWhatsApp = generarLinkWhatsApp(producto.nombre);
         const carouselHTML = crearCarousel(producto, index);
 
-        card.innerHTML = `
+        card.innerHTML = 
           ${carouselHTML}
           <h3 class="text-base font-semibold" id="nombre-producto-${index}">${producto.nombres ? producto.nombres[0] : producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
@@ -466,14 +466,14 @@
           <a href="${linkWhatsApp}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1" id="whatsapp-link-${index}">
             <i class="ri-whatsapp-line text-base"></i> Consultar
           </a>
-        `;
+        ;
         contenedor.appendChild(card);
 
         // Inicializar eventos táctiles solo para productos con múltiples imágenes
         if (producto.imagenes.length > 1) {
-          const carousel = card.querySelector(`#carousel-${index}`);
+          const carousel = card.querySelector(#carousel-${index});
           if (carousel) {
-            initializeTouchEvents(carousel, `carousel-${index}`);
+            initializeTouchEvents(carousel, carousel-${index});
           }
         }
       });
@@ -483,7 +483,7 @@
       const state = carouselStates[carouselId];
       if (!state) return;
       
-      const track = document.getElementById(`${carouselId}-track`);
+      const track = document.getElementById(${carouselId}-track);
       if (!track) return;
       
       let newSlide = state.currentSlide + direccion;
@@ -492,7 +492,7 @@
       if (newSlide >= state.totalSlides) newSlide = 0;
       
       state.currentSlide = newSlide;
-      track.style.transform = `translateX(-${newSlide * 100}%)`;
+      track.style.transform = translateX(-${newSlide * 100}%);
       
       // Actualizar miniaturas
       const carousel = document.getElementById(carouselId);
@@ -517,11 +517,11 @@
       const state = carouselStates[carouselId];
       if (!state) return;
       
-      const track = document.getElementById(`${carouselId}-track`);
+      const track = document.getElementById(${carouselId}-track);
       if (!track) return;
       
       state.currentSlide = imageIndex;
-      track.style.transform = `translateX(-${imageIndex * 100}%)`;
+      track.style.transform = translateX(-${imageIndex * 100}%);
       
       // Actualizar miniaturas
       const carousel = document.getElementById(carouselId);
@@ -547,8 +547,8 @@
       const producto = productosFiltrados[productoIndex];
       
       if (producto && producto.nombres && producto.nombres[imageIndex]) {
-        const nombreElement = document.getElementById(`nombre-producto-${productoIndex}`);
-        const whatsappLink = document.getElementById(`whatsapp-link-${productoIndex}`);
+        const nombreElement = document.getElementById(nombre-producto-${productoIndex});
+        const whatsappLink = document.getElementById(whatsapp-link-${productoIndex});
         
         if (nombreElement) {
           nombreElement.textContent = producto.nombres[imageIndex];
@@ -565,7 +565,7 @@
     function filtrar(categoria) {
       renderizarProductos(categoria);
       botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
-      const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
+      const btnActivo = document.querySelector(.filtro-btn[data-categoria="${categoria}"]);
       if (btnActivo) btnActivo.classList.add('filtro-activo');
     }
 
