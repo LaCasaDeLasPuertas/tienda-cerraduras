@@ -37,13 +37,11 @@
       overflow: hidden;
       aspect-ratio: 1;
       border-radius: 0.5rem;
-      touch-action: pan-y pinch-zoom;
     }
     .carousel-track {
       display: flex;
       transition: transform 0.3s ease;
       height: 100%;
-      will-change: transform;
     }
     .carousel-slide {
       min-width: 100%;
@@ -66,7 +64,6 @@
       align-items: center;
       justify-content: center;
       transition: background-color 0.3s;
-      z-index: 10;
     }
     .carousel-nav:hover {
       background: rgba(0, 0, 0, 0.7);
@@ -76,34 +73,6 @@
     }
     .carousel-nav.next {
       right: 8px;
-    }
-    
-    /* Mejorar la experiencia táctil */
-    .carousel-container img {
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      pointer-events: none;
-    }
-    
-    /* Indicadores visuales para el deslizamiento */
-    .carousel-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.1) 100%);
-      pointer-events: none;
-      z-index: 5;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .carousel-container.dragging::before {
-      opacity: 1;
     }
   </style>
 </head>
@@ -306,149 +275,52 @@
     const contenedor = document.getElementById('contenedor-productos');
     const botonesFiltro = document.querySelectorAll('.filtro-btn');
 
-    // Variables globales para el seguimiento del carrusel
-    let carouselStates = {};
-
     function generarLinkWhatsApp(nombreProducto) {
-      const mensaje = Hola! Estoy interesado en ${nombreProducto};
+      const mensaje = `Hola! Estoy interesado en ${nombreProducto}`;
       const mensajeEncoded = encodeURIComponent(mensaje);
-      return https://wa.me/51948660856?text=${mensajeEncoded};
+      return `https://wa.me/51948660856?text=${mensajeEncoded}`;
     }
 
     function crearCarousel(producto, index) {
       if (producto.imagenes.length === 1) {
-        return <img src="${producto.imagenes[0]}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">;
+        return `<img src="${producto.imagenes[0]}" alt="${producto.nombre}" class="aspect-square object-cover w-full rounded mb-3">`;
       }
 
-      const carouselId = carousel-${index};
-      carouselStates[carouselId] = { currentSlide: 0, totalSlides: producto.imagenes.length };
-      
+      const carouselId = `carousel-${index}`;
       const miniaturas = producto.imagenes.map((img, imgIndex) => 
-        <img src="${img}" alt="${producto.nombres ? producto.nombres[imgIndex] : producto.nombre} ${imgIndex + 1}" 
+        `<img src="${img}" alt="${producto.nombres ? producto.nombres[imgIndex] : producto.nombre} ${imgIndex + 1}" 
              class="miniatura w-8 h-8 object-cover rounded cursor-pointer ${imgIndex === 0 ? 'miniatura-activa' : ''}" 
-             onclick="cambiarImagen('${carouselId}', ${imgIndex}, ${index})">
+             onclick="cambiarImagen('${carouselId}', ${imgIndex}, ${index})">`
       ).join('');
 
       const slides = producto.imagenes.map(img => 
-        <div class="carousel-slide">
+        `<div class="carousel-slide">
            <img src="${img}" alt="${producto.nombre}" class="w-full h-full object-cover">
-         </div>
+         </div>`
       ).join('');
 
-      return 
-        <div class="carousel-container mb-2" id="${carouselId}" data-producto-index="${index}">
+      return `
+        <div class="carousel-container mb-2" id="${carouselId}">
           <div class="carousel-track" id="${carouselId}-track">
             ${slides}
           </div>
-          <button class="carousel-nav prev" onclick="navegarCarousel('${carouselId}', -1, ${index})">
-            <i class="ri-arrow-left-s-line"></i>
-          </button>
-          <button class="carousel-nav next" onclick="navegarCarousel('${carouselId}', 1, ${index})">
-            <i class="ri-arrow-right-s-line"></i>
-          </button>
+          ${producto.imagenes.length > 1 ? `
+            <button class="carousel-nav prev" onclick="navegarCarousel('${carouselId}', -1, ${index})">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="carousel-nav next" onclick="navegarCarousel('${carouselId}', 1, ${index})">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          ` : ''}
         </div>
         <div class="mb-3">
           <div class="flex justify-center gap-1">${miniaturas}</div>
         </div>
-      ;
-    }
-
-    function initializeTouchEvents(carousel, carouselId) {
-      let startX = 0;
-      let startY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      let isDragging = false;
-      let startTime = 0;
-
-      // Función para manejar el inicio del touch/mouse
-      function handleStart(e) {
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        
-        startX = clientX;
-        startY = clientY;
-        currentX = clientX;
-        currentY = clientY;
-        startTime = Date.now();
-        isDragging = true;
-        
-        carousel.classList.add('dragging');
-        
-        // Prevenir selección de texto en desktop
-        if (!e.touches) {
-          e.preventDefault();
-        }
-      }
-
-      // Función para manejar el movimiento
-      function handleMove(e) {
-        if (!isDragging) return;
-        
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        
-        currentX = clientX;
-        currentY = clientY;
-        
-        // Calcular diferencias
-        const diffX = Math.abs(startX - currentX);
-        const diffY = Math.abs(startY - currentY);
-        
-        // Si el movimiento es más horizontal que vertical, prevenir scroll
-        if (diffX > diffY && diffX > 10) {
-          e.preventDefault();
-        }
-      }
-
-      // Función para manejar el final del touch/mouse
-      function handleEnd(e) {
-        if (!isDragging) return;
-        
-        isDragging = false;
-        carousel.classList.remove('dragging');
-        
-        const diffX = startX - currentX;
-        const diffY = startY - currentY;
-        const timeDiff = Date.now() - startTime;
-        const velocity = Math.abs(diffX) / timeDiff;
-        
-        // Determinar si fue un deslizamiento válido
-        const isHorizontalSwipe = Math.abs(diffX) > Math.abs(diffY);
-        const isSignificantDistance = Math.abs(diffX) > 50;
-        const isFastSwipe = velocity > 0.3;
-        
-        if (isHorizontalSwipe && (isSignificantDistance || isFastSwipe)) {
-          const productoIndex = parseInt(carousel.dataset.productoIndex);
-          if (diffX > 0) {
-            // Deslizar hacia la izquierda (siguiente imagen)
-            navegarCarousel(carouselId, 1, productoIndex);
-          } else {
-            // Deslizar hacia la derecha (imagen anterior)
-            navegarCarousel(carouselId, -1, productoIndex);
-          }
-        }
-      }
-
-      // Event listeners para touch
-      carousel.addEventListener('touchstart', handleStart, { passive: false });
-      carousel.addEventListener('touchmove', handleMove, { passive: false });
-      carousel.addEventListener('touchend', handleEnd, { passive: true });
-      carousel.addEventListener('touchcancel', handleEnd, { passive: true });
-
-      // Event listeners para mouse (desktop)
-      carousel.addEventListener('mousedown', handleStart);
-      carousel.addEventListener('mousemove', handleMove);
-      carousel.addEventListener('mouseup', handleEnd);
-      carousel.addEventListener('mouseleave', handleEnd);
-      
-      // Prevenir arrastrar imagen
-      carousel.addEventListener('dragstart', (e) => e.preventDefault());
+      `;
     }
 
     function renderizarProductos(categoria) {
       contenedor.innerHTML = '';
-      carouselStates = {};
       const productosFiltrados = productos.filter(p => p.categoria === categoria);
       
       productosFiltrados.forEach((producto, index) => {
@@ -458,7 +330,7 @@
         const linkWhatsApp = generarLinkWhatsApp(producto.nombre);
         const carouselHTML = crearCarousel(producto, index);
 
-        card.innerHTML = 
+        card.innerHTML = `
           ${carouselHTML}
           <h3 class="text-base font-semibold" id="nombre-producto-${index}">${producto.nombres ? producto.nombres[0] : producto.nombre}</h3>
           <p class="text-xs text-gray-600 mb-1">${producto.descripcion}</p>
@@ -466,75 +338,130 @@
           <a href="${linkWhatsApp}" target="_blank" class="mt-auto text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition flex items-center justify-center gap-1" id="whatsapp-link-${index}">
             <i class="ri-whatsapp-line text-base"></i> Consultar
           </a>
-        ;
+        `;
         contenedor.appendChild(card);
 
-        // Inicializar eventos táctiles solo para productos con múltiples imágenes
+        // Añadir eventos de touch para deslizamiento en móviles
         if (producto.imagenes.length > 1) {
-          const carousel = card.querySelector(#carousel-${index});
-          if (carousel) {
-            initializeTouchEvents(carousel, carousel-${index});
-          }
+          const carousel = card.querySelector(`#carousel-${index}`);
+          let startX = 0;
+          let currentX = 0;
+          let isDragging = false;
+
+          carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+          });
+
+          carousel.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            currentX = e.touches[0].clientX;
+          });
+
+          carousel.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diffX = startX - currentX;
+            const threshold = 50; // Umbral mínimo para considerar el deslizamiento
+            
+            if (Math.abs(diffX) > threshold) {
+              if (diffX > 0) {
+                // Deslizar hacia la izquierda (siguiente imagen)
+                navegarCarousel(`carousel-${index}`, 1, index);
+              } else {
+                // Deslizar hacia la derecha (imagen anterior)
+                navegarCarousel(`carousel-${index}`, -1, index);
+              }
+            }
+          });
+
+          // También añadir soporte para mouse drag en desktop
+          carousel.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            e.preventDefault();
+          });
+
+          carousel.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX;
+          });
+
+          carousel.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diffX = startX - currentX;
+            const threshold = 50;
+            
+            if (Math.abs(diffX) > threshold) {
+              if (diffX > 0) {
+                navegarCarousel(`carousel-${index}`, 1, index);
+              } else {
+                navegarCarousel(`carousel-${index}`, -1, index);
+              }
+            }
+          });
+
+          carousel.addEventListener('mouseleave', () => {
+            isDragging = false;
+          });
         }
       });
     }
 
     function navegarCarousel(carouselId, direccion, productoIndex = null) {
-      const state = carouselStates[carouselId];
-      if (!state) return;
+      const carousel = document.getElementById(carouselId);
+      const track = document.getElementById(`${carouselId}-track`);
+      const slides = track.children;
       
-      const track = document.getElementById(${carouselId}-track);
-      if (!track) return;
+      if (!carousel.dataset.currentSlide) {
+        carousel.dataset.currentSlide = '0';
+      }
       
-      let newSlide = state.currentSlide + direccion;
+      let currentSlide = parseInt(carousel.dataset.currentSlide);
+      currentSlide += direccion;
       
-      if (newSlide < 0) newSlide = state.totalSlides - 1;
-      if (newSlide >= state.totalSlides) newSlide = 0;
+      if (currentSlide < 0) currentSlide = slides.length - 1;
+      if (currentSlide >= slides.length) currentSlide = 0;
       
-      state.currentSlide = newSlide;
-      track.style.transform = translateX(-${newSlide * 100}%);
+      carousel.dataset.currentSlide = currentSlide;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
       
       // Actualizar miniaturas
-      const carousel = document.getElementById(carouselId);
-      if (carousel) {
-        const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
-        miniaturas.forEach((miniatura, index) => {
-          if (index === newSlide) {
-            miniatura.classList.add('miniatura-activa');
-          } else {
-            miniatura.classList.remove('miniatura-activa');
-          }
-        });
-      }
+      const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
+      miniaturas.forEach((miniatura, index) => {
+        if (index === currentSlide) {
+          miniatura.classList.add('miniatura-activa');
+        } else {
+          miniatura.classList.remove('miniatura-activa');
+        }
+      });
 
       // Actualizar nombre del producto si tiene nombres específicos
       if (productoIndex !== null) {
-        actualizarNombreProducto(productoIndex, newSlide);
+        actualizarNombreProducto(productoIndex, currentSlide);
       }
     }
 
     function cambiarImagen(carouselId, imageIndex, productoIndex = null) {
-      const state = carouselStates[carouselId];
-      if (!state) return;
+      const carousel = document.getElementById(carouselId);
+      const track = document.getElementById(`${carouselId}-track`);
       
-      const track = document.getElementById(${carouselId}-track);
-      if (!track) return;
-      
-      state.currentSlide = imageIndex;
-      track.style.transform = translateX(-${imageIndex * 100}%);
+      carousel.dataset.currentSlide = imageIndex;
+      track.style.transform = `translateX(-${imageIndex * 100}%)`;
       
       // Actualizar miniaturas
-      const carousel = document.getElementById(carouselId);
-      if (carousel) {
-        const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
-        miniaturas.forEach((miniatura, index) => {
-          if (index === imageIndex) {
-            miniatura.classList.add('miniatura-activa');
-          } else {
-            miniatura.classList.remove('miniatura-activa');
-          }
-        });
-      }
+      const miniaturas = carousel.parentElement.querySelectorAll('.miniatura');
+      miniaturas.forEach((miniatura, index) => {
+        if (index === imageIndex) {
+          miniatura.classList.add('miniatura-activa');
+        } else {
+          miniatura.classList.remove('miniatura-activa');
+        }
+      });
 
       // Actualizar nombre del producto si tiene nombres específicos
       if (productoIndex !== null) {
@@ -547,8 +474,8 @@
       const producto = productosFiltrados[productoIndex];
       
       if (producto && producto.nombres && producto.nombres[imageIndex]) {
-        const nombreElement = document.getElementById(nombre-producto-${productoIndex});
-        const whatsappLink = document.getElementById(whatsapp-link-${productoIndex});
+        const nombreElement = document.getElementById(`nombre-producto-${productoIndex}`);
+        const whatsappLink = document.getElementById(`whatsapp-link-${productoIndex}`);
         
         if (nombreElement) {
           nombreElement.textContent = producto.nombres[imageIndex];
@@ -565,7 +492,7 @@
     function filtrar(categoria) {
       renderizarProductos(categoria);
       botonesFiltro.forEach(btn => btn.classList.remove('filtro-activo'));
-      const btnActivo = document.querySelector(.filtro-btn[data-categoria="${categoria}"]);
+      const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoria}"]`);
       if (btnActivo) btnActivo.classList.add('filtro-activo');
     }
 
@@ -573,7 +500,6 @@
     window.navegarCarousel = navegarCarousel;
     window.cambiarImagen = cambiarImagen;
 
-    // Inicializar con la categoría entrada
     filtrar('entrada');
   </script>
 </body>
